@@ -58,7 +58,8 @@ _IS_RAILWAY = bool(os.getenv("RAILWAY_ENVIRONMENT") or os.getenv("RAILWAY_PROJEC
 # Explicit DEMO_MODE must always win, including on Railway.
 _demo_mode_env = os.getenv("DEMO_MODE")
 if _demo_mode_env is None:
-    _BOOT_DEMO_MODE = True
+    # Default to live-capable local mode; keep cloud deployments in safe demo mode.
+    _BOOT_DEMO_MODE = _IS_RAILWAY
 else:
     _BOOT_DEMO_MODE = _demo_mode_env.lower() == "true"
 
@@ -1313,6 +1314,11 @@ class LiveRuntime:
                         self.video_init_retries,
                         frame_mean,
                     )
+                    if not self._is_file_source:
+                        self.cap = cap
+                        self.frame_ok = True
+                        logger.warning("[LiveRuntime] Accepting dark webcam warm-up frame and staying in live mode")
+                        return
                     cap.release()
                     continue
 
@@ -1929,6 +1935,43 @@ def _resolve_camera_source(junction_id: str, direction: str) -> Optional[str]:
     )
 
 
+def _apply_live_runtime_camera_source(blocking_reopen: bool = True) -> None:
+    """Sync LiveRuntime capture source with current UI camera mode.
+
+    This avoids opening the same webcam through multiple independent capture
+    objects (a common MSMF failure pattern on Windows).
+    """
+    lr = globals().get("live_runtime")
+    if lr is None or not getattr(lr, "enabled", False):
+        return
+
+    target_source = _uploaded_video_path if (_camera_input_mode == "upload" and _uploaded_video_exists()) else "0"
+    target_source = str(target_source)
+    current_source = str(getattr(lr, "video_source", ""))
+
+    # No switch needed when source is already active and capture is open.
+    cap = getattr(lr, "cap", None)
+    if current_source == target_source and cap is not None and cap.isOpened():
+        return
+
+    try:
+        if cap is not None:
+            cap.release()
+    except Exception:
+        pass
+
+    lr.cap = None
+    lr.video_source = target_source
+    lr._is_file_source = os.path.isfile(target_source)
+    lr.frame_ok = False
+    lr.consecutive_zero_frames = 0
+    if blocking_reopen:
+        lr._open_video_source()
+    else:
+        # Let the runtime tick reopen asynchronously to keep mode-switch APIs responsive.
+        lr._last_open_attempt = 0.0
+
+
 @app.get("/api/live/source")
 async def live_source_status():
     return _camera_source_payload()
@@ -1947,6 +1990,7 @@ async def live_source_mode(req: CameraSourceModeRequest, x_api_key: Optional[str
     _camera_input_mode = mode
     _camera_source_updated_at = int(time.time() * 1000)
     _invalidate_cam_renderers()
+    _apply_live_runtime_camera_source(blocking_reopen=False)
     return _camera_source_payload()
 
 
@@ -1977,6 +2021,7 @@ async def live_upload_video(video: UploadFile = File(...), x_api_key: Optional[s
         _camera_input_mode = "upload"
         _camera_source_updated_at = int(time.time() * 1000)
         _invalidate_cam_renderers()
+        _apply_live_runtime_camera_source(blocking_reopen=False)
 
         return {
             "ok": True,
@@ -2012,6 +2057,7 @@ async def live_clear_uploaded_video(x_api_key: Optional[str] = Header(default=No
     _camera_input_mode = "live"
     _camera_source_updated_at = int(time.time() * 1000)
     _invalidate_cam_renderers()
+    _apply_live_runtime_camera_source(blocking_reopen=False)
     return {
         "ok": True,
         "message": "Uploaded video cleared. Switched to live camera mode.",
@@ -2134,16 +2180,23 @@ async def junction_camera_stream(junction_id: str, direction: str):
         from fastapi import HTTPException
         raise HTTPException(400, f"direction must be one of {ALLOWED_DIRS}")
 
-    renderer = _get_cam_renderer(junction_id, dir_clean)
-    if renderer is None:
-        logger.warning("[CamRenderer] Falling back to placeholder stream for %s (%s)", junction_id, dir_clean)
+    renderer = None
+    if not live_runtime.enabled:
+        renderer = _get_cam_renderer(junction_id, dir_clean)
+        if renderer is None:
+            logger.warning("[CamRenderer] Falling back to placeholder stream for %s (%s)", junction_id, dir_clean)
 
     async def _cam_gen():
         boundary = b"--frame\r\n"
         while True:
             jpeg = None
             try:
-                if renderer is not None:
+                # Prefer the single shared LiveRuntime capture pipeline when active.
+                if live_runtime.enabled:
+                    if live_runtime.latest_frame_jpeg is None:
+                        await live_runtime.tick()
+                    jpeg = live_runtime.latest_frame_jpeg
+                elif renderer is not None:
                     # Sync renderer calls — run in thread pool to avoid blocking async loop
                     import asyncio
                     loop = asyncio.get_event_loop()
@@ -2178,19 +2231,24 @@ async def junction_camera_stream(junction_id: str, direction: str):
 async def junction_camera_snapshot(junction_id: str, direction: str):
     """Return a single JPEG frame for the given camera."""
     dir_clean = direction.lower().strip()
-    renderer = _get_cam_renderer(junction_id, dir_clean)
     jpeg = None
     source_kind = "live"
-    if renderer is not None:
-        try:
-            import asyncio
-            loop = asyncio.get_event_loop()
-            frame, detections = await loop.run_in_executor(None, renderer.render)
-            phase = _junction_states.get(junction_id, {}).get("phase", "NS_GREEN")
-            renderer.set_phase(phase)
-            jpeg = _encode_jpeg_frame(frame)
-        except Exception as exc:
-            logger.warning("[CamRenderer] snapshot render failed for %s (%s): %s", junction_id, dir_clean, exc)
+    if live_runtime.enabled:
+        if live_runtime.latest_frame_jpeg is None:
+            await live_runtime.tick()
+        jpeg = live_runtime.latest_frame_jpeg
+    else:
+        renderer = _get_cam_renderer(junction_id, dir_clean)
+        if renderer is not None:
+            try:
+                import asyncio
+                loop = asyncio.get_event_loop()
+                frame, detections = await loop.run_in_executor(None, renderer.render)
+                phase = _junction_states.get(junction_id, {}).get("phase", "NS_GREEN")
+                renderer.set_phase(phase)
+                jpeg = _encode_jpeg_frame(frame)
+            except Exception as exc:
+                logger.warning("[CamRenderer] snapshot render failed for %s (%s): %s", junction_id, dir_clean, exc)
 
     if not jpeg:
         source_kind = "placeholder"

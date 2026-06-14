@@ -145,9 +145,9 @@ These 6 items need the SUMO traffic simulator installed (freely available from [
 
 | Model | Metric | Value | Details |
 |-------|--------|-------|---------|
-| **DQN Agent** | Waiting Time Reduction | **↓ 98.3%** | 582.6s → 9.6s vs fixed-timing baseline |
-| | Queue Length Reduction | **↓ 90.7%** | 26.4 → 2.5 vehicles |
-| | Mean Reward | −19.5 ± 1.4 | Baseline was −1152.6 ± 365.4 |
+| **DQN Agent** | Waiting Time Reduction | **↓ 98.24%** | 581.31s → 10.23s vs fixed-timing baseline |
+| | Queue Length Reduction | **↓ 89.97%** | 26.16 → 2.62 vehicles |
+| | Mean Reward | −20.66 ± 2.20 | Baseline was −1149.14 ± 317.28 |
 | **LSTM Predictor** | R² Score | **0.6126** | 30-min ahead traffic forecasting |
 | | MAE | **0.0746** | On normalized traffic features |
 | **ML Anomaly Detector** | F1 Score | **0.913** | IsolationForest + Autoencoder ensemble |

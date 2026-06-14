@@ -70,10 +70,10 @@ Software & Python 3.13.7, PyTorch 2.6.0+cu124, SB3 2.x \\
 \toprule
 \textbf{Metric} & \textbf{Fixed-Timing Baseline} & \textbf{RL Agent} & \textbf{Change} \\
 \midrule
-Mean reward & $-1152.62 \pm 365.40$ & $-19.51 \pm 1.35$ & $+98.3\%$ \\
-Average waiting time (s) & 582.61 & 9.65 & $-98.34\%$ \\
-Average queue length (veh) & 26.36 & 2.46 & $-90.66\%$ \\
-Throughput (veh/hr) & 496.8 & 424.4 & $-14.57\%$ \\
+Mean reward & $-1149.14 \pm 317.28$ & $-20.66 \pm 2.20$ & $+98.20\%$ \\
+Average waiting time (s) & 581.31 & 10.23 & $-98.24\%$ \\
+Average queue length (veh) & 26.16 & 2.62 & $-89.97\%$ \\
+Throughput (veh/hr) & 510.8 & 453.8 & $-11.16\%$ \\
 Episode length & 720 & 720 & -- \\
 \bottomrule
 \end{tabular}
@@ -140,7 +140,7 @@ Dashboard & Frontend map and KPIs & Operational view with sync indicator, health
 \end{table}
 
 \section*{6. Short Interpretation}
-The reported results indicate that the RL controller substantially outperforms fixed timing on congestion-related metrics. The most important gain is waiting time reduction, which dropped from 582.61 seconds to 9.65 seconds. Queue length also fell sharply, from 26.36 vehicles to 2.46 vehicles. The throughput reduction is moderate and reflects the reward design, which prioritizes reduced delay and better traffic balance. In addition to the control results, the project includes traffic forecasting, anomaly detection, and a live dashboard, which makes it a complete AI-based traffic management prototype rather than a single-model experiment.
+The reported results indicate that the RL controller substantially outperforms fixed timing on congestion-related metrics. The most important gain is waiting time reduction, which dropped from 581.31 seconds to 10.23 seconds. Queue length also fell sharply, from 26.16 vehicles to 2.62 vehicles. The throughput reduction is moderate and reflects the reward design, which prioritizes reduced delay and better traffic balance. In addition to the control results, the project includes traffic forecasting, anomaly detection, and a live dashboard, which makes it a complete AI-based traffic management prototype rather than a single-model experiment.
 
 \section*{7. Conclusion}
 The current NEXUS-ATMS implementation already supports end-to-end AI traffic management: simulation, control, forecasting, anomaly detection, live dashboarding, and audit/replay. For paper submission, the canonical table source should be the JSON evaluation file, with training time reported from the DQN run logs. This gives a credible and submission-ready results section for professor review.

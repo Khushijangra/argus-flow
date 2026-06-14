@@ -41,6 +41,23 @@ def run_cmd(cmd: List[str], log, description: str) -> bool:
         return False
 
 
+def _set_dashboard_env_live() -> None:
+    """Launch backend with live camera/video pipeline enabled."""
+    os.environ["DEMO_MODE"] = "false"
+    os.environ["LIVE_MODE"] = "true"
+    os.environ["DEBUG_CV"] = "true"
+    os.environ.setdefault("REAL_DATA_ONLY", "true")
+    os.environ.setdefault("ENABLE_SIMULATION_FALLBACK", "false")
+    os.environ.setdefault("FAIL_FAST_VIDEO", "false")
+
+
+def _set_dashboard_env_demo() -> None:
+    """Launch backend in lightweight demo mode."""
+    os.environ["DEMO_MODE"] = "true"
+    os.environ["LIVE_MODE"] = "false"
+    os.environ["FAIL_FAST_VIDEO"] = "false"
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="One-click demo: train → evaluate → report → dashboard"
@@ -63,22 +80,18 @@ def main():
 
     # Dashboard-only mode
     if args.dashboard_only:
-        log.info("Launching dashboard in demo mode (no SUMO required)...")
-        os.environ["DEMO_MODE"] = "true"
-        os.environ["LIVE_MODE"] = "false"
-        os.environ["FAIL_FAST_VIDEO"] = "false"
+        log.info("Launching dashboard in live camera mode (no SUMO required)...")
+        _set_dashboard_env_live()
         run_cmd([py, "backend/main.py"], log, "Dashboard")
         return
 
     # Full pipeline
     has_sumo = check_sumo()
     if not has_sumo:
-        log.warning("SUMO not found. Launching dashboard in demo mode instead.")
-        log.info("To run full pipeline, install SUMO and set SUMO_HOME.")
-        os.environ["DEMO_MODE"] = "true"
-        os.environ["LIVE_MODE"] = "false"
-        os.environ["FAIL_FAST_VIDEO"] = "false"
-        run_cmd([py, "backend/main.py"], log, "Dashboard (demo)")
+        log.warning("SUMO not found. Launching dashboard in live camera mode instead.")
+        log.info("To run full training pipeline, install SUMO and set SUMO_HOME.")
+        _set_dashboard_env_live()
+        run_cmd([py, "backend/main.py"], log, "Dashboard (live)")
         return
 
     log.info(f"SUMO detected ✓")
@@ -94,11 +107,9 @@ def main():
         log, "Training"
     )
     if not ok:
-        log.error("Training failed. Launching dashboard in demo mode.")
-        os.environ["DEMO_MODE"] = "true"
-        os.environ["LIVE_MODE"] = "false"
-        os.environ["FAIL_FAST_VIDEO"] = "false"
-        run_cmd([py, "backend/main.py"], log, "Dashboard (demo)")
+        log.error("Training failed. Launching dashboard in live camera mode.")
+        _set_dashboard_env_live()
+        run_cmd([py, "backend/main.py"], log, "Dashboard (live)")
         return
 
     # Step 3: Find the latest model
@@ -144,9 +155,7 @@ def main():
     # Step 6: Launch dashboard
     if not args.skip_dashboard:
         log.info("Launching dashboard...")
-        os.environ["DEMO_MODE"] = "true"
-        os.environ["LIVE_MODE"] = "false"
-        os.environ["FAIL_FAST_VIDEO"] = "false"
+        _set_dashboard_env_live()
         run_cmd([py, "backend/main.py"], log, "Dashboard")
 
 

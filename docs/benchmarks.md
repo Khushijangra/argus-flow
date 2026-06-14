@@ -21,14 +21,14 @@ Results from `results/evaluation_results.json` (actual evaluation run):
 
 | Metric | Fixed-Timing Baseline | DQN Agent | Change |
 |--------|-----------------------|-----------|--------|
-| Mean Reward | −1 152.6 ± 365.4 | **−19.5 ± 1.4** | **+98.3 %** |
-| Avg Waiting Time (s) | 582.6 | **9.6** | **↓ 98.3 %** |
-| Avg Queue Length (veh) | 26.4 | **2.5** | **↓ 90.7 %** |
-| Throughput (veh/hr) | 496.8 | 424.4 | ↓ 14.6 % |
+| Mean Reward | −1 149.1 ± 317.3 | **−20.7 ± 2.2** | **+98.2 %** |
+| Avg Waiting Time (s) | 581.3 | **10.2** | **↓ 98.24 %** |
+| Avg Queue Length (veh) | 26.16 | **2.62** | **↓ 89.97 %** |
+| Throughput (veh/hr) | 510.8 | 453.8 | ↓ 11.16 % |
 | Episode Length | 720 | 720 | — |
 
 > **Insight:** The trained DQN achieves a near-zero waiting time and a
-> 10× reduction in queue length. Throughput drops slightly (−14.6 %) because
+> 10× reduction in queue length. Throughput drops slightly (−11.16 %) because
 > the agent prioritises delay reduction over raw vehicle count — a favourable
 > trade-off for urban livability.
 

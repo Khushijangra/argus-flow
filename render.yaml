@@ -4,6 +4,7 @@ services:
     env: python
     plan: free
     autoDeploy: true
+    healthCheckPath: /health
     buildCommand: pip install -r requirements-deploy.txt
     startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
     envVars:

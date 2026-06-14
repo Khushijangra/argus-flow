@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DEMO_MODE: "true"
+      LIVE_MODE: "false"
+      FAIL_FAST_VIDEO: "false"
+      ALLOWED_ORIGINS: "http://127.0.0.1:8000,http://localhost:8000"
+      PYTHONUNBUFFERED: "1"

@@ -1524,6 +1524,8 @@
     const timelineLimit = 60;
     let wsRetryTimer = null;
     let fallbackPollTimer = null;
+    let cameraFrameTimer = null;
+    let hasUploadedVideo = false;
 
     function fmtNum(v, d = 1) {
       const n = Number(v || 0);
@@ -1718,23 +1720,40 @@
       const modeLabel = cameraInputMode === 'upload' ? 'upload video' : 'live camera';
       document.getElementById('liveFeedLabel').textContent = jid + ' · ' + direction + ' · ' + modeLabel;
 
+      if (cameraFrameTimer) {
+        clearInterval(cameraFrameTimer);
+        cameraFrameTimer = null;
+      }
+
       const feedDiv = document.getElementById('videoFeed');
       feedDiv.classList.add('fade-out');
       setTimeout(() => {
         feedDiv.innerHTML = '';
         const img = document.createElement('img');
         img.alt = 'Live feed for ' + jid + ' ' + direction;
+        let consecutiveErrors = 0;
+
+        const refreshSnapshot = () => {
+          img.src = '/api/live/camera/' + encodeURIComponent(jid) + '/' + direction + '/snapshot?t=' + Date.now();
+        };
+
         img.onerror = () => {
-          const reason = cameraInputMode === 'upload' ? 'Uploaded video feed unavailable' : 'Live camera feed unavailable';
-          feedDiv.innerHTML = '<div class="video-fallback"><div>' + reason + '</div><div>Source: ' + modeLabel + '</div></div>';
-          feedDiv.classList.remove('fade-out');
-          hideSkeleton('cameraSkeleton');
+          consecutiveErrors += 1;
+          if (consecutiveErrors >= 3) {
+            const reason = cameraInputMode === 'upload' ? 'Uploaded video feed unavailable' : 'Live camera feed unavailable';
+            feedDiv.innerHTML = '<div class="video-fallback"><div>' + reason + '</div><div>Source: ' + modeLabel + '</div></div>';
+            feedDiv.classList.remove('fade-out');
+            hideSkeleton('cameraSkeleton');
+          }
         };
         img.onload = () => {
+          consecutiveErrors = 0;
           feedDiv.classList.remove('fade-out');
           hideSkeleton('cameraSkeleton');
         };
-        img.src = '/api/live/camera/' + encodeURIComponent(jid) + '/' + direction + '?t=' + Date.now();
+
+        refreshSnapshot();
+        cameraFrameTimer = setInterval(refreshSnapshot, 250);
         feedDiv.appendChild(img);
       }, 220);
 
@@ -1786,7 +1805,7 @@
       const rows = ids.map(jid => {
         const j = appState.junctions[jid] || {};
         const queue = Number(j.queue_length || j.queue || 0);
-        const wait = Number(j.avg_wait || j.waiting_time || 0);
+        const wait = Number(j.avg_waiting_time || j.avg_wait || j.waiting_time || 0);
         const vehicleCount = Number(j.vehicle_count || j.vehicles || 0);
         const congestion = String(j.congestion || 'normal').toLowerCase();
         const risk = congestion === 'high' ? 100 : (congestion === 'medium' ? 66 : 28);
@@ -1942,7 +1961,7 @@
         return {
           jid,
           queue: Number(j.queue_length || j.queue || 0),
-          wait: Number(j.avg_wait || j.waiting_time || 0),
+          wait: Number(j.avg_waiting_time || j.avg_wait || j.waiting_time || 0),
           congestion: String(j.congestion || 'normal').toLowerCase()
         };
       }).sort((a, b) => (b.queue - a.queue) || (b.wait - a.wait));
@@ -2113,6 +2132,7 @@
     async function refreshCameraSourceConfig() {
       const payload = await fetchJson('/api/live/source');
       cameraInputMode = (payload.mode || 'live');
+      hasUploadedVideo = Boolean(payload.has_uploaded_video);
       const modeEl = document.getElementById('cameraInputMode');
       if (modeEl) modeEl.value = cameraInputMode;
       const fileName = payload.uploaded_video_name ? (' | file: ' + payload.uploaded_video_name) : '';
@@ -2141,8 +2161,17 @@
       document.getElementById('uploadTrafficBtn').onclick = async () => {
         const fileEl = document.getElementById('uploadTrafficVideo');
         const file = fileEl && fileEl.files ? fileEl.files[0] : null;
+        if (!file && hasUploadedVideo) {
+          await runAction('Switch to uploaded video', async () => {
+            await postJson('/api/live/source/mode', { mode: 'upload' });
+            cameraInputMode = 'upload';
+            await refreshCameraSourceConfig();
+            updateLiveFeed(true);
+          }, true);
+          return;
+        }
         if (!file) {
-          showToast('Select a video file first', 'warn');
+          showToast('Select a video file first (or keep a previously uploaded one)', 'warn');
           return;
         }
         try {
@@ -2154,6 +2183,7 @@
             throw new Error(data.detail || data.error || ('HTTP ' + res.status));
           }
           cameraInputMode = 'upload';
+          hasUploadedVideo = true;
           await refreshCameraSourceConfig();
           updateLiveFeed(true);
           showToast('Video uploaded and stream switched to upload mode', 'ok');
@@ -2164,7 +2194,7 @@
 
       document.getElementById('clearUploadBtn').onclick = async () => {
         await runAction('Switch to live webcam', async () => {
-          await postJson('/api/live/upload-video/clear', {});
+          await postJson('/api/live/source/mode', { mode: 'live' });
           cameraInputMode = 'live';
           await refreshCameraSourceConfig();
           updateLiveFeed(true);
@@ -2289,7 +2319,7 @@
       let waitSum = 0;
       for (const jid of ids) {
         queueSum += Number(junctions[jid].queue_length || 0);
-        waitSum += Number(junctions[jid].avg_wait || 0);
+        waitSum += Number(junctions[jid].avg_waiting_time || junctions[jid].avg_wait || 0);
       }
 
       const emergencyEvent = Array.isArray(emergencyActive) && emergencyActive.length ? emergencyActive[0] : null;
