@@ -25,7 +25,31 @@ from typing import Deque, Dict, List, Optional, Tuple
 
 import numpy as np
 
+import torch.nn as nn
+
 logger = logging.getLogger(__name__)
+
+class TrafficAutoencoder(nn.Module):
+    def __init__(self, in_dim, hidden, latent):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            nn.Linear(in_dim, hidden),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(hidden, latent),
+            nn.ReLU(),
+        )
+        self.decoder = nn.Sequential(
+            nn.Linear(latent, hidden),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(hidden, in_dim),
+        )
+
+    def forward(self, x):
+        z = self.encoder(x)
+        return self.decoder(z), z
+
 
 
 # Feature set for traffic anomaly detection (per intersection)
@@ -186,28 +210,6 @@ class MLAnomalyDetector:
         from torch.utils.data import DataLoader, TensorDataset
 
         n_feat = data.shape[1]
-
-        # Build autoencoder
-        class TrafficAutoencoder(nn.Module):
-            def __init__(self, in_dim, hidden, latent):
-                super().__init__()
-                self.encoder = nn.Sequential(
-                    nn.Linear(in_dim, hidden),
-                    nn.ReLU(),
-                    nn.Dropout(0.1),
-                    nn.Linear(hidden, latent),
-                    nn.ReLU(),
-                )
-                self.decoder = nn.Sequential(
-                    nn.Linear(latent, hidden),
-                    nn.ReLU(),
-                    nn.Dropout(0.1),
-                    nn.Linear(hidden, in_dim),
-                )
-
-            def forward(self, x):
-                z = self.encoder(x)
-                return self.decoder(z), z
 
         self._autoencoder = TrafficAutoencoder(
             n_feat, self.ae_hidden, self.ae_latent
@@ -437,23 +439,6 @@ class MLAnomalyDetector:
 
         ae_path = os.path.join(path, "autoencoder.pt")
         if os.path.isfile(ae_path):
-            import torch.nn as nn
-
-            class TrafficAutoencoder(nn.Module):
-                def __init__(self, in_dim, hidden, latent):
-                    super().__init__()
-                    self.encoder = nn.Sequential(
-                        nn.Linear(in_dim, hidden), nn.ReLU(), nn.Dropout(0.1),
-                        nn.Linear(hidden, latent), nn.ReLU(),
-                    )
-                    self.decoder = nn.Sequential(
-                        nn.Linear(latent, hidden), nn.ReLU(), nn.Dropout(0.1),
-                        nn.Linear(hidden, in_dim),
-                    )
-
-                def forward(self, x):
-                    z = self.encoder(x)
-                    return self.decoder(z), z
 
             self._autoencoder = TrafficAutoencoder(
                 self.n_features, self.ae_hidden, self.ae_latent

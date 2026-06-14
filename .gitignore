@@ -40,6 +40,8 @@ reports/
 audio_cache/
 docs/video_frames/
 nexus_dashboard/
+presentation_assets/
+presentation_diagrams/
 
 # Large model/data artifacts
 yolov8n.pt
