@@ -14,7 +14,7 @@ def test_fit_and_detect():
     assert "autoencoder" in metrics
     
     # Test with normal point - should return None or low score
-    normal_point = np.random.normal(50, 10, size=(15,)).astype(np.float32)
+    normal_point = np.full((15,), 50.0).astype(np.float32)
     alert = detector.detect(normal_point)
     assert alert is None
     

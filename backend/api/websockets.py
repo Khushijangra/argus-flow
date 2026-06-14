@@ -1,5 +1,7 @@
-from fastapi import APIRouter, Request, HTTPException
+from typing import Optional, List, Dict, Any
+from fastapi import WebSocket, WebSocketDisconnect, Header, Query, APIRouter, Request, HTTPException
 import backend.dependencies as deps
+from backend.services.traffic_service import live_runtime
 from backend.core.config import *
 from backend.core.utils import *
 router = APIRouter(tags=['Websockets'])
@@ -17,8 +19,8 @@ async def websocket_live(ws: WebSocket):
             tick_t0 = time.perf_counter()
             if live_runtime.enabled:
                 traffic = await live_runtime.tick()
-            elif demo_gen:
-                traffic = demo_gen.get_snapshot()
+            elif deps.demo_gen:
+                traffic = deps.demo_gen.get_snapshot()
             else:
                 traffic = {}
             if isinstance(traffic, dict) and traffic:
@@ -101,22 +103,22 @@ async def websocket_live(ws: WebSocket):
                 deps._session_metrics["saved_vehicle_minutes"] += saved_vehicle_minutes
                 deps._session_metrics["emissions_saved_kg"] += emissions_saved
 
-            if counterfactual and traffic:
+            if deps.counterfactual and traffic:
                 queues = {
                     "N": int(traffic.get("queues", {}).get("north", 0)),
                     "S": int(traffic.get("queues", {}).get("south", 0)),
                     "E": int(traffic.get("queues", {}).get("east", 0)),
                     "W": int(traffic.get("queues", {}).get("west", 0)),
                 }
-                counterfactual.record_comparison(
+                deps.counterfactual.record_comparison(
                     ai_avg_wait=traffic.get("avg_waiting_time", 0.0),
                     ai_total_queue=int(traffic.get("total_queue", 0)),
                     ai_throughput=int(traffic.get("throughput", 0)),
                     queue_lengths=queues,
                 )
-            if carbon_engine and traffic:
+            if deps.carbon_engine and traffic:
                 idle_ai = float(traffic.get("avg_waiting_time", 0.0)) / 60.0
-                carbon_engine.record_snapshot(
+                deps.carbon_engine.record_snapshot(
                     idle_ai,
                     idle_ai * 1.35,
                     max(1, int(traffic.get("total_queue", 1))),
@@ -129,7 +131,7 @@ async def websocket_live(ws: WebSocket):
             runtime_status = live_runtime.status()
             emergency_state = _build_emergency_state()
             event_state = _build_incidents_payload()
-            maintenance_orders = maintenance_ai.get_open_orders() if maintenance_ai else []
+            maintenance_orders = deps.maintenance_ai.get_open_orders() if deps.maintenance_ai else []
             perf = _session_metrics_payload()
             threat_state = _build_security_payload()
 
@@ -198,7 +200,7 @@ async def websocket_live(ws: WebSocket):
                 "esg": {
                     "emissions_saved": perf.get("emissions_saved_kg", 0.0),
                     "idle_time_saved": round(max(0.0, perf.get("avg_idle_baseline_s", 0.0) - perf.get("avg_idle_ai_s", 0.0)), 2),
-                    "daily": carbon_engine.get_today_stats() if carbon_engine else {},
+                    "daily": deps.carbon_engine.get_today_stats() if deps.carbon_engine else {},
                 },
                 "maintenance": {
                     "potholes": sum(1 for o in maintenance_orders if "pothole" in str(o.get("issue", "")).lower()),
@@ -273,10 +275,10 @@ async def websocket_live(ws: WebSocket):
                 "tick_timestamp": tick_timestamp,
                 "system_state": system_state,
             }
-            if counterfactual:
-                payload["counterfactual"] = counterfactual.get_comparison()
-            if carbon_engine:
-                payload["carbon"] = carbon_engine.get_today_stats()
+            if deps.counterfactual:
+                payload["deps.counterfactual"] = deps.counterfactual.get_comparison()
+            if deps.carbon_engine:
+                payload["carbon"] = deps.carbon_engine.get_today_stats()
             if live_runtime.latest_prediction:
                 payload["prediction"] = live_runtime.latest_prediction
 

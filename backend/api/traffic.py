@@ -1,21 +1,27 @@
-from fastapi import APIRouter, Request, HTTPException
+from typing import Optional, List, Dict, Any
+from backend.core.schemas import CameraSourceModeRequest, JunctionSelectRequest, JunctionModeRequest
+from fastapi import APIRouter, Request, HTTPException, Query, Header, File, UploadFile
+from fastapi.responses import JSONResponse, StreamingResponse
 import backend.dependencies as deps
+from backend.services.video_service import _get_cam_renderer, _demo_placeholder_jpeg, _read_demo_video_frame
+from backend.services.traffic_service import live_runtime
 from backend.core.config import *
 from backend.core.utils import *
+from backend.core.utils import _import_errors
 router = APIRouter(tags=['Traffic'])
 
 @router.get("/api/status")
 async def status():
     modules_status = {}
     module_map = {
-        "emergency": emergency_engine,
-        "carbon": carbon_engine,
-        "pedestrian_safety": pedestrian_ai,
-        "cybersecurity": security_detector,
-        "road_maintenance": maintenance_ai,
-        "nl_command": nl_parser,
-        "counterfactual": counterfactual,
-        "voice_broadcast": voice,
+        "emergency": deps.emergency_engine,
+        "carbon": deps.carbon_engine,
+        "pedestrian_safety": deps.pedestrian_ai,
+        "cybersecurity": deps.security_detector,
+        "road_maintenance": deps.maintenance_ai,
+        "nl_command": deps.nl_parser,
+        "deps.counterfactual": deps.counterfactual,
+        "voice_broadcast": deps.voice,
     }
     for name, instance in module_map.items():
         modules_status[name] = "active" if instance else f"failed: {_import_errors.get(f'modules.{name}', 'unknown')}"
@@ -24,15 +30,15 @@ async def status():
     return {
         "status": "running",
         "version": "2.0.0",
-        "demo_mode": DEMO_MODE,
-        "live_mode": LIVE_MODE,
-        "decision_engine": dict(_rl_engine_info),
+        "demo_mode": getattr(deps, "demo_gen", None) is not None,
+        "live_mode": getattr(deps, "live_runtime", None) is not None,
+        "decision_engine": dict(_rl_engine_info) if "_rl_engine_info" in globals() else {},
         "ws_clients": deps.ws_manager.count,
         "junctions": len(deps._junction_states),
         "modules": modules_status,
         "runtime": runtime_status,
         "runtime_health": runtime_status,
-        "camera_source": _camera_source_payload(),
+        "camera_source": getattr(deps, "_camera_source_payload", lambda: {})(),
     }
 
 
@@ -212,7 +218,6 @@ async def junction_camera_stream(junction_id: str, direction: str):
     ALLOWED_DIRS = {"north", "south", "east", "west"}
     dir_clean = direction.lower().strip()
     if dir_clean not in ALLOWED_DIRS:
-        from fastapi import HTTPException
         raise HTTPException(400, f"direction must be one of {ALLOWED_DIRS}")
 
     renderer = None
@@ -290,7 +295,6 @@ async def junction_camera_snapshot(junction_id: str, direction: str):
         source_kind = "placeholder"
         jpeg = _demo_placeholder_jpeg("Snapshot fallback", junction_id)
     if not jpeg:
-        from fastapi import HTTPException
         raise HTTPException(500, "JPEG encode failed")
     from fastapi.responses import Response
     return Response(content=jpeg, media_type="image/jpeg", headers={"X-Camera-Source": source_kind})
@@ -301,46 +305,46 @@ async def junction_camera_snapshot(junction_id: str, direction: str):
 async def snapshot():
     if live_runtime.enabled:
         snap = await live_runtime.tick()
-        if counterfactual:
+        if deps.counterfactual:
             queues = {
                 "N": int(snap["queues"].get("north", 0)),
                 "S": int(snap["queues"].get("south", 0)),
                 "E": int(snap["queues"].get("east", 0)),
                 "W": int(snap["queues"].get("west", 0)),
             }
-            counterfactual.record_comparison(
+            deps.counterfactual.record_comparison(
                 ai_avg_wait=snap["avg_waiting_time"],
                 ai_total_queue=int(snap["total_queue"]),
                 ai_throughput=int(snap["throughput"]),
                 queue_lengths=queues,
             )
-        if carbon_engine:
+        if deps.carbon_engine:
             idle_ai = snap["avg_waiting_time"] / 60.0
             idle_baseline = idle_ai * 1.35
-            carbon_engine.record_snapshot(idle_ai, idle_baseline, max(1, int(snap["total_queue"])))
+            deps.carbon_engine.record_snapshot(idle_ai, idle_baseline, max(1, int(snap["total_queue"])))
         return snap
 
-    if demo_gen:
-        snap = demo_gen.get_snapshot()
-        # Feed counterfactual engine
-        if counterfactual:
+    if deps.demo_gen:
+        snap = deps.demo_gen.get_snapshot()
+        # Feed deps.counterfactual engine
+        if deps.counterfactual:
             queues = {
                 "N": int(snap["queues"].get("north", 0)),
                 "S": int(snap["queues"].get("south", 0)),
                 "E": int(snap["queues"].get("east", 0)),
                 "W": int(snap["queues"].get("west", 0)),
             }
-            counterfactual.record_comparison(
+            deps.counterfactual.record_comparison(
                 ai_avg_wait=snap["avg_waiting_time"],
                 ai_total_queue=int(snap["total_queue"]),
                 ai_throughput=int(snap["throughput"]),
                 queue_lengths=queues,
             )
         # Feed carbon engine
-        if carbon_engine:
+        if deps.carbon_engine:
             idle_ai = snap["avg_waiting_time"] / 60.0
             idle_baseline = idle_ai * 1.4
-            carbon_engine.record_snapshot(idle_ai, idle_baseline, 100)
+            deps.carbon_engine.record_snapshot(idle_ai, idle_baseline, 100)
         return snap
     return {"error": "No data source available. Connect a live webcam or upload a video."}
 
@@ -350,7 +354,7 @@ async def snapshot():
 async def history(n: int = Query(100, ge=1, le=1000)):
     if live_runtime.enabled and live_runtime.latest_traffic:
         return [live_runtime.latest_traffic for _ in range(min(n, 10))]
-    if demo_gen:
+    if deps.demo_gen:
         gen = DemoDataGenerator(mode="rl")
         return gen.get_history(n)
     return []

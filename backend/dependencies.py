@@ -57,3 +57,13 @@ _last_ws_tx_ms = 0.0
 _last_traffic_snapshot: Dict[str, Any] = {}
 
 # We will store LiveRuntime instance here later if needed, but for now we'll import it from main.
+
+demo_gen = None
+emergency_engine = None
+carbon_engine = None
+pedestrian_ai = None
+security_detector = None
+maintenance_ai = None
+nl_parser = None
+counterfactual = None
+voice = None

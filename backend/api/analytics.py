@@ -1,5 +1,8 @@
-from fastapi import APIRouter, Request, HTTPException
+from backend.core.schemas import VoiceAnnounceRequest
+from typing import Optional, List, Dict, Any
+from fastapi import Header, Query, APIRouter, Request, HTTPException
 import backend.dependencies as deps
+from backend.services.traffic_service import live_runtime
 from backend.core.config import *
 from backend.core.utils import *
 router = APIRouter(tags=['Analytics'])
@@ -9,20 +12,20 @@ router = APIRouter(tags=['Analytics'])
 # ---------------------------------------------------------------
 @router.get("/api/carbon/today")
 async def carbon_today():
-    if not carbon_engine:
+    if not deps.carbon_engine:
         return JSONResponse({"error": "Carbon module not available"}, status_code=503)
-    return carbon_engine.get_today_stats()
+    return deps.carbon_engine.get_today_stats()
 
 
 
 @router.get("/api/carbon/certificate")
 async def carbon_certificate():
-    if not carbon_engine:
+    if not deps.carbon_engine:
         return JSONResponse({"error": "Carbon module not available"}, status_code=503)
     cert_dir = os.path.join(PROJECT_ROOT, "reports")
     os.makedirs(cert_dir, exist_ok=True)
     cert_path = os.path.join(cert_dir, "carbon_certificate.pdf")
-    carbon_engine.generate_certificate(output_path=cert_path)
+    deps.carbon_engine.generate_certificate(output_path=cert_path)
     if os.path.exists(cert_path):
         return FileResponse(cert_path, media_type="application/pdf",
                             filename="nexus_carbon_certificate.pdf")
@@ -32,9 +35,9 @@ async def carbon_certificate():
 
 @router.get("/api/carbon/history")
 async def carbon_history():
-    if not carbon_engine:
+    if not deps.carbon_engine:
         return []
-    return carbon_engine.get_all_daily_stats()
+    return deps.carbon_engine.get_all_daily_stats()
 
 
 
@@ -43,9 +46,9 @@ async def carbon_history():
 # ---------------------------------------------------------------
 @router.get("/api/pedestrian/analyze")
 async def pedestrian_analyze(junction_id: str = "J1_1"):
-    if not pedestrian_ai:
+    if not deps.pedestrian_ai:
         return JSONResponse({"error": "Pedestrian module not available"}, status_code=503)
-    result = pedestrian_ai.analyze_frame(frame=None, junction_id=junction_id)
+    result = deps.pedestrian_ai.analyze_frame(frame=None, junction_id=junction_id)
     return result
 
 
@@ -53,31 +56,31 @@ async def pedestrian_analyze(junction_id: str = "J1_1"):
 # ---------------------------------------------------------------
 # REST Endpoints — Counterfactual
 # ---------------------------------------------------------------
-@router.get("/api/counterfactual")
+@router.get("/api/deps.counterfactual")
 async def counterfactual_comparison():
-    if not counterfactual:
+    if not deps.counterfactual:
         return JSONResponse({"error": "Counterfactual module not available"}, status_code=503)
-    return counterfactual.get_comparison()
+    return deps.counterfactual.get_comparison()
 
 
 
 # ---------------------------------------------------------------
 # REST Endpoints — Voice Broadcast
 # ---------------------------------------------------------------
-@router.post("/api/voice/announce")
+@router.post("/api/deps.voice/announce")
 async def voice_announce(req: VoiceAnnounceRequest):
-    if not voice:
+    if not deps.voice:
         return JSONResponse({"error": "Voice module not available"}, status_code=503)
-    path = voice.announce(req.message, language=req.language, play=req.play)
+    path = deps.voice.announce(req.message, language=req.language, play=req.play)
     return {"status": "ok", "audio_file": path}
 
 
 
-@router.get("/api/voice/log")
+@router.get("/api/deps.voice/log")
 async def voice_log(limit: int = 20):
-    if not voice:
+    if not deps.voice:
         return []
-    return voice.get_broadcast_log(limit=limit)
+    return deps.voice.get_broadcast_log(limit=limit)
 
 
 
@@ -89,7 +92,7 @@ async def metrics_overview():
     if live_runtime.enabled and live_runtime.latest_traffic:
         snapshot_data = live_runtime.latest_traffic
     else:
-        snapshot_data = demo_gen.get_snapshot() if demo_gen else {}
+        snapshot_data = deps.demo_gen.get_snapshot() if deps.demo_gen else {}
 
     overview = {
         "traffic": {
@@ -98,12 +101,12 @@ async def metrics_overview():
             "throughput": snapshot_data.get("throughput", 0),
             "phase": snapshot_data.get("phase", "unknown"),
         },
-        "carbon": carbon_engine.get_today_stats() if carbon_engine else {},
-        "counterfactual": counterfactual.get_comparison() if counterfactual else {},
-        "emergency_active": len(emergency_engine._active_events) if emergency_engine else 0,
-        "security_events_24h": len(security_detector.get_events()) if security_detector else 0,
-        "maintenance_orders": len(maintenance_ai.get_open_orders()) if maintenance_ai else 0,
-        "voice_broadcasts": voice.get_stats() if voice else {},
+        "carbon": deps.carbon_engine.get_today_stats() if deps.carbon_engine else {},
+        "deps.counterfactual": deps.counterfactual.get_comparison() if deps.counterfactual else {},
+        "emergency_active": len(deps.emergency_engine._active_events) if deps.emergency_engine else 0,
+        "security_events_24h": len(deps.security_detector.get_events()) if deps.security_detector else 0,
+        "maintenance_orders": len(deps.maintenance_ai.get_open_orders()) if deps.maintenance_ai else 0,
+        "voice_broadcasts": deps.voice.get_stats() if deps.voice else {},
         "ws_clients": deps.ws_manager.count,
     }
     return overview

@@ -5,6 +5,7 @@ import backend.dependencies as deps
 from backend.core.utils import _optional_cv2
 
 def _get_cam_renderer(junction_id: str, direction: str):
+    from backend.main import RoadCameraRenderer, _resolve_camera_source, _cam_renderers, logger
     """Return a cached RoadCameraRenderer for the given junction + direction."""
     if RoadCameraRenderer is None:
         return None
@@ -47,6 +48,7 @@ def _get_cam_renderer(junction_id: str, direction: str):
 
 
 def _junction_state_payload(junction_id: str) -> Dict:
+    from backend.main import _camera_input_mode, _camera_source_payload
     st = deps._junction_states.get(junction_id, {})
     if not st:
         return {}

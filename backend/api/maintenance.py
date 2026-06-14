@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Request, HTTPException
+from backend.core.schemas import SecurityValidateRequest, SecuritySimulateRequest
+from typing import Optional, List, Dict, Any
+from fastapi import Header, Query, APIRouter, Request, HTTPException
 import backend.dependencies as deps
 from backend.core.config import *
 from backend.core.utils import *
@@ -9,15 +11,15 @@ router = APIRouter(tags=['Maintenance'])
 # ---------------------------------------------------------------
 @router.get("/api/maintenance/orders")
 async def maintenance_orders():
-    if not maintenance_ai:
+    if not deps.maintenance_ai:
         return []
-    return maintenance_ai.get_open_orders()
+    return deps.maintenance_ai.get_open_orders()
 
 
 
 @router.get("/api/maintenance/geojson")
 async def maintenance_geojson():
-    orders = maintenance_ai.get_open_orders() if maintenance_ai else []
+    orders = deps.maintenance_ai.get_open_orders() if deps.maintenance_ai else []
     features = []
     for idx, order in enumerate(orders):
         lat = float(order.get("lat", 28.6139))
@@ -43,25 +45,25 @@ async def maintenance_geojson():
 # ---------------------------------------------------------------
 @router.post("/api/security/validate")
 async def security_validate(req: SecurityValidateRequest):
-    if not security_detector:
+    if not deps.security_detector:
         return JSONResponse({"error": "Security module not available"}, status_code=503)
-    return security_detector.validate_command(req.junction_id, req.new_phase, source=req.source)
+    return deps.security_detector.validate_command(req.junction_id, req.new_phase, source=req.source)
 
 
 
 @router.post("/api/security/simulate")
 async def security_simulate(req: SecuritySimulateRequest):
-    if not security_detector:
+    if not deps.security_detector:
         return JSONResponse({"error": "Security module not available"}, status_code=503)
-    return security_detector.simulate_attack(req.attack_type, req.junction_id)
+    return deps.security_detector.simulate_attack(req.attack_type, req.junction_id)
 
 
 
 @router.get("/api/security/events")
 async def security_events():
-    if not security_detector:
+    if not deps.security_detector:
         return []
-    return security_detector.get_events(limit=50)
+    return deps.security_detector.get_events(limit=50)
 
 
 

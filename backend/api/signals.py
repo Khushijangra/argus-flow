@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Request, HTTPException
+from backend.core.schemas import SignalOverrideRequest, NLCommandRequest
+from typing import Optional, List, Dict, Any
+from fastapi import Header, Query, APIRouter, Request, HTTPException
 import backend.dependencies as deps
 from backend.core.config import *
 from backend.core.utils import *
@@ -15,8 +17,8 @@ async def signal_override(req: SignalOverrideRequest, x_api_key: Optional[str] =
         return JSONResponse({"error": f"Unknown junction {jid}"}, status_code=404)
 
     # Security check
-    if security_detector:
-        result = security_detector.validate_command(jid, hash(req.phase) % 8, source=req.source)
+    if deps.security_detector:
+        result = deps.security_detector.validate_command(jid, hash(req.phase) % 8, source=req.source)
         if not result.get("allowed"):
             return JSONResponse({"error": "Security blocked", "details": result}, status_code=403)
 
@@ -45,9 +47,9 @@ async def signal_override(req: SignalOverrideRequest, x_api_key: Optional[str] =
 @router.post("/api/nl/command")
 async def nl_command(req: NLCommandRequest, x_api_key: Optional[str] = Header(default=None, alias="X-API-Key")):
     _enforce_control_access(x_api_key)
-    if not nl_parser:
+    if not deps.nl_parser:
         return JSONResponse({"error": "NL command module not available"}, status_code=503)
-    parsed = nl_parser.parse(req.text)
+    parsed = deps.nl_parser.parse(req.text)
     response = {
         "intent": parsed.intent,
         "confidence": parsed.confidence,
@@ -62,11 +64,11 @@ async def nl_command(req: NLCommandRequest, x_api_key: Optional[str] = Header(de
 
     # Auto-execute high-confidence commands
     if parsed.confidence >= 0.8:
-        if parsed.intent == "emergency" and emergency_engine:
+        if parsed.intent == "emergency" and deps.emergency_engine:
             origin = parsed.junctions[0] if parsed.junctions else "J0_0"
             destination = parsed.junctions[1] if len(parsed.junctions) > 1 else "J3_3"
             vtype = parsed.vehicle_type or "ambulance"
-            event = emergency_engine.activate_corridor("nl_" + str(int(time.time())), vtype, origin, destination)
+            event = deps.emergency_engine.activate_corridor("nl_" + str(int(time.time())), vtype, origin, destination)
             if event:
                 response["action_taken"] = {"emergency_activated": True, "path": event.path}
                 _push_incident("nl_emergency", " -> ".join(event.path), "active", f"NL command: {req.text}")

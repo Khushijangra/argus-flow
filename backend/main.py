@@ -34,6 +34,7 @@ import os
 import random
 import shutil
 import sys
+import backend.dependencies as deps
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
@@ -139,7 +140,7 @@ if os.path.isdir(FRONTEND_DIR):
 # Demo mode flag
 DEMO_MODE = _BOOT_DEMO_MODE
 LIVE_MODE = (os.getenv("LIVE_MODE", "false").lower() == "true") and not DEMO_MODE
-demo_gen = DemoDataGenerator(mode="rl") if DEMO_MODE else None
+deps.demo_gen = DemoDataGenerator(mode="rl") if DEMO_MODE else None
 
 
 def _ensure_demo_mode(reason: str) -> None:
@@ -153,14 +154,14 @@ def _ensure_demo_mode(reason: str) -> None:
 # ---------------------------------------------------------------
 # Module Singletons
 # ---------------------------------------------------------------
-emergency_engine = None
-carbon_engine = None
-pedestrian_ai = None
-security_detector = None
-maintenance_ai = None
-nl_parser = None
-counterfactual = None
-voice = None
+deps.emergency_engine = None
+deps.carbon_engine = None
+deps.pedestrian_ai = None
+deps.security_detector = None
+deps.maintenance_ai = None
+deps.nl_parser = None
+deps.counterfactual = None
+deps.voice = None
 
 
 def _init_module_singletons() -> None:
@@ -195,7 +196,6 @@ def _init_module_singletons() -> None:
 # ---------------------------------------------------------------
 # WebSocket Manager
 # ---------------------------------------------------------------
-import backend.dependencies as deps
 from backend.services.video_service import *
 from backend.services.traffic_service import _congestion_from_density, _phase_from_lane, _active_lane_from_phase, _camera_direction_from_phase, _normalize_phase_name, _lane_distribution_from_snapshot, _apply_traffic_snapshot_to_junctions, _apply_phase_to_junction, _refresh_phase_countdowns, LiveRuntime
 

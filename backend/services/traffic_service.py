@@ -1,5 +1,19 @@
 import time
-from typing import Dict, Any, Optional
+import numpy as np
+import numpy as np
+import numpy as np
+import os
+import asyncio
+import collections
+from typing import List, Dict, Any, Optional
+from backend.core.utils import _safe_import
+
+RoadGeoMapper = _safe_import("ai.vision.geo_mapper", "RoadGeoMapper")
+VideoSimulator = _safe_import("ai.vision.camera", "VideoSimulator")
+MultiAgentD3QN = _safe_import("ai.rl.d3qn_agent", "MultiAgentD3QN")
+AnomalyDetector = _safe_import("ai.anomaly.detector", "AnomalyDetector")
+SHAPExplainer = _safe_import("ai.explainability.shap_parser", "SHAPExplainer")
+CarbonCalculator = _safe_import("ai.analytics.carbon", "CarbonCalculator")
 import backend.dependencies as deps
 
 def _congestion_from_density(density: float) -> str:
@@ -151,7 +165,7 @@ class LiveRuntime:
     """Connect vision, IoT, prediction, anomaly, and RL into one live tick."""
 
     def __init__(self) -> None:
-        self.enabled = LIVE_MODE and not DEMO_MODE
+        self.enabled = (os.getenv("LIVE_MODE", "false").lower() == "true") and not (os.getenv("DEMO_MODE", "false").lower() == "true")
         self.real_data_only = os.getenv("REAL_DATA_ONLY", "true").lower() == "true"
         self.mode = os.getenv("RUN_MODE", "real").strip().lower()
         if self.mode not in ("real", "demo"):
