@@ -1,69 +1,45 @@
-# Python caches and artifacts
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-.coverage.*
-htmlcov/
 
-# Virtual environments
+# Environments
+.env
 .venv/
 venv/
-env/
 ENV/
+env.bak/
+venv.bak/
 
-# OS / editor
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# Environment files
-.env
-.env.*
-!.env.example
-
-# Build/distribution
-build/
-dist/
-*.egg-info/
-
-# Runtime logs and generated outputs
-logs/
-models/
-results/
-reports/
-audio_cache/
-docs/video_frames/
-nexus_dashboard/
-presentation_assets/
-presentation_diagrams/
-
-# Large model/data artifacts
-yolov8n.pt
-*.pt
+# PyTorch & Large Files
 *.pth
-*.pkl
-*.npz
+*.pt
+*.ckpt
+*.safetensors
 *.onnx
-*.tflite
 
-# Frontend/node (if React/Vite dashboard is used)
-node_modules/
-.npm/
-coverage/
-*.tsbuildinfo
+# Data & Features
+data/raw/
+data/features/
+data/processed/
+*.npy
+*.npz
+*.h5
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Misc
+# Logs & Outputs
+logs/
+outputs/
+runs/
 *.log
 *.tmp
-*.bak
-*.orig
-*.rej
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+.ipynb_checkpoints/
+.pytest_cache/
+.cache/
+tmp/
+temp/
