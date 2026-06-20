@@ -42,21 +42,13 @@ def main():
         target_dir = input_path / sub_dir
         if target_dir.exists():
             for img_path in target_dir.rglob('*.jpg'):
-                filename = img_path.name
-                if '_img' in filename:
-                    seq_name = filename.split('_img')[0]
-                else:
-                    seq_name = filename.rsplit('_', 1)[0]
+                seq_name = img_path.parent.name
                 sequences[seq_name].append(img_path)
 
     # Fallback if specific folders aren't found
     if not sequences:
         for img_path in input_path.rglob('*.jpg'):
-            filename = img_path.name
-            if '_img' in filename:
-                seq_name = filename.split('_img')[0]
-            else:
-                seq_name = filename.rsplit('_', 1)[0]
+                seq_name = img_path.parent.name
             sequences[seq_name].append(img_path)
 
     if not sequences:
