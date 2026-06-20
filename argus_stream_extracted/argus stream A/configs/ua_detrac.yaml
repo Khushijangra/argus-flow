@@ -1,13 +1,14 @@
 # UA-DETRAC Configuration
 
-features_dir: ../../data/features/ua_detrac/videomae
-metadata_dir: data/metadata
+data:
+  dataset: ua_detrac
+  data_dir: ../../data
+  train_split: train
+  val_split: val
 
-model:
-  name: mulde
-  input_dim: 768
-  hidden_dims: [512, 256]
-  
+stream_a:
+  hidden_dim: 512
+
 training:
   batch_size: 2048
   learning_rate: 0.0001
