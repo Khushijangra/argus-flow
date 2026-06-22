@@ -1,68 +1,44 @@
 # ArgusFlow
+
 ### Vision-Guided Traffic Incident Intelligence & Recovery Platform
 
-Built on top of the NEXUS-ATMS reinforcement learning core, ArgusFlow extends traditional traffic optimization with transformer-based anomaly perception.
+## 1. Problem
+Urban traffic systems rely on basic mathematical metrics like queue lengths and static timers, making them entirely blind to real-world incidents. When accidents, road maintenance, or severe anomalies occur, traditional networks fail to react, leading to cascading gridlocks. They lack the *visual perception* required to understand context and severity.
 
-NEXUS provides:
-• Traffic Environment
-• PPO Decision Engine
-• Traffic Recovery Logic
+## 2. Solution
+**ArgusFlow** introduces visual intelligence to traffic optimization. Built on a powerful reinforcement learning core (NEXUS), it acts as a Vision-Guided Traffic Incident Intelligence & Recovery Platform. By identifying anomalous traffic events from camera streams and computing severity scores, ArgusFlow dynamically instructs a Deep Reinforcement Learning engine to autonomously adapt signal phases, clear blockages, and recover traffic flow.
 
-ArgusFlow adds:
-• VideoMAE Perception Layer
-• MULDE Anomaly Scoring
-• Incident Severity Modeling
-• Digital Twin Command Center
-
-The current hackathon runtime demonstrates the complete recovery loop through controlled anomaly injection, while the repository already contains the VideoMAE and MULDE components required for full end-to-end perception integration.
-
-While traditional traffic systems operate purely on mathematical metrics (queue lengths, wait times), ArgusFlow introduces visual intelligence. It identifies anomalous traffic events directly from video streams and dynamically feeds severity scores into a Reinforcement Learning engine to autonomously recover traffic flow.
-
----
-
-## Technical Architecture
-
+## 3. Architecture Diagram
 ![ArgusFlow Architecture](docs/media/media__1781973451680.png)
 
-ArgusFlow is a hybrid architecture uniting Computer Vision (Argus Vision Stack) with Reinforcement Learning (NEXUS Engine).
+## 4. Demo Screenshot
+*(Insert YouTube Link or High-Res Screenshot here)*
 
-### The Current Runtime (Mocked Live Integration)
-For demonstration and scenario-testing purposes, the live presentation executes the following pathway, where anomalies are injected via the Command Center:
-
-```mermaid
-graph TD
-    VF[Video Feed] --> SI[Scenario Injection]
-    SI --> HR[Hybrid Runtime]
-    HR --> PPO[PPO Recovery Engine]
-    PPO --> TE[Traffic Environment]
-    TE --> DT[Digital Twin]
-```
-
-### The Roadmap (Full Technical Reality)
-The codebase includes state-of-the-art vision models in `argus_stream_extracted`. The immediate roadmap integrates these directly into the execution loop, removing the need for mock injection:
+## 5. Runtime Pipeline
+ArgusFlow executes a hybrid pipeline combining Computer Vision (Argus Vision Stack) with Reinforcement Learning (NEXUS Engine):
 
 ```mermaid
 graph TD
-    VF[Video Feed] --> FB[Frame Buffer]
-    FB --> VMAE[VideoMAE]
-    VMAE --> EMB[768D Embedding]
-    EMB --> MULDE[MULDE Scorer]
-    MULDE --> AE[Anomaly Event]
-    AE --> HSB[Hybrid State Builder]
-    HSB --> RLM[RL Observation Mapper]
-    RLM --> PPO[PPO Engine]
-    PPO --> TS[Traffic Simulator]
-    TS --> DT[Digital Twin]
+    VF[Live Video Feed / Camera Edge] --> SI[Command Center Gateway]
+    SI --> HR[ArgusFlow Hybrid Runtime]
+    HR --> PPO[PPO Autonomous Recovery Engine]
+    PPO --> TE[Traffic Micro-Simulator]
+    TE --> DT[Next.js Digital Twin]
 ```
+*(Note: Full technical research implementation for direct VideoMAE and MULDE integration is archived within `archive/stream_a_research`)*
 
----
+## 6. Tech Stack
+- **Frontend**: Next.js, React, TailwindCSS, Recharts
+- **Backend**: FastAPI, WebSockets, Python
+- **Intelligence**: PyTorch (PPO, D3QN), Scikit-Learn
+- **Simulation**: Eclipse SUMO (Simulation of Urban MObility)
+- **Deployment**: Docker, Docker Compose
 
-## Running the Platform
-
+## 7. Run Locally
 ArgusFlow provides a comprehensive Command Center built with Next.js and FastAPI.
 
 ### 1. Start the Intelligent Backend
-The backend initializes the Hybrid Runtime and the PPO engines.
+The backend initializes the Hybrid Runtime, anomaly detectors, and PPO engines.
 ```bash
 python backend/main.py
 ```
@@ -73,5 +49,9 @@ Launch the Next.js Digital Twin and Scenario Studio.
 cd frontend
 npm run dev
 ```
+Navigate to `http://localhost:3000` to interact with the Digital Twin and monitor active traffic states.
 
-*Navigate to `http://localhost:3000` to interact with the Digital Twin and inject scenarios.*
+## 8. Future Work
+- **Direct Edge Deployment**: Move the MULDE anomaly scorer directly to edge camera nodes to reduce bandwidth overhead.
+- **V2X Integration**: Expand the emergency corridor engine to communicate directly with connected emergency vehicles.
+- **Multi-Modal Vision**: Combine infrared and RGB streams for robust nighttime anomaly detection.
