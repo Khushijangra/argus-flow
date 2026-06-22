@@ -1,5 +1,0 @@
-inherits: avenue_stream_a
-
-training:
-  epochs: 2
-  checkpoint_interval_epochs: 1

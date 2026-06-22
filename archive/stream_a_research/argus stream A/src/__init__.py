@@ -1,1 +1,0 @@
-"""Standalone Stream A package."""

@@ -1,3 +1,0 @@
-Controller,AvgDelay,Throughput,Stops
-Baseline,387688.5,7411.4,13788.6
-PPO,288850.5,7759.2,57352.1
