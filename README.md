@@ -22,6 +22,8 @@ While traditional traffic systems operate purely on mathematical metrics (queue 
 
 ## Technical Architecture
 
+![ArgusFlow Architecture](docs/media/media__1781973451680.png)
+
 ArgusFlow is a hybrid architecture uniting Computer Vision (Argus Vision Stack) with Reinforcement Learning (NEXUS Engine).
 
 ### The Current Runtime (Mocked Live Integration)
