@@ -1,0 +1,21 @@
+# Hybrid Runtime Configuration
+
+sumo:
+  config_file: "networks/sumo/piedmont.sumocfg"
+  gui: false
+  simulation_rate: 1.0  # seconds per tick
+  step_length: 1.0
+
+rl:
+  enabled: true
+  checkpoint_path: "models/J0_0/best/best_model.zip"
+  graph_enabled: false
+
+stream_a:
+  enabled: true
+  endpoint: "http://localhost:8000/api/v1/anomaly/detect"
+  window_size: 5
+
+websocket:
+  host: "0.0.0.0"
+  port: 8001

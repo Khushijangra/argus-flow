@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-20T14:43:54.881689+05:30 by Eclipse SUMO polyconvert 1.26.0
+<polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\sumo\piedmont.net.xml"/>
+        <osm-files value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\osm\piedmont.osm"/>
+        <type-file value="C:\Program Files (x86)\Eclipse\Sumo\data\typemap\osmPolyconvert.typ.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\polygons\piedmont.poly.xml"/>
+    </output>
+
+</polyconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <location netOffset="-566064.24,-4185278.55" convBoundary="0.00,0.00,3247.95,2147.12" origBoundary="-122.249336,37.812289,-122.212491,37.831726" projParameter="+proj=utm +zone=10 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+</additional>

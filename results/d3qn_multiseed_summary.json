@@ -1,0 +1,83 @@
+{
+  "timesteps": 30000,
+  "config": "configs/default.yaml",
+  "python": "C:\\Python313\\python.exe",
+  "seeds": {
+    "42": {
+      "eval": {
+        "mean_reward": -20.440500000000007,
+        "std_reward": 3.216153758762158,
+        "mean_length": 720.0,
+        "episodes": 5,
+        "avg_waiting_time": 10.023611111111112,
+        "avg_queue_length": 2.4847222222222225,
+        "avg_throughput": 416.8,
+        "throughput": 416.8
+      },
+      "reward_curve_mean": -19.199200000000015,
+      "reward_curve_std": 0.20373769083472903,
+      "loss_mean": 0.0026319797147047372,
+      "loss_std": 0.0015109257403759342,
+      "loss_nan": false,
+      "epsilon_final": 0.05,
+      "n_eval_points": 3,
+      "n_loss_points": 6251,
+      "run_name": "d3qn_20260411_200143",
+      "model_path": "C:\\Users\\Asus\\OneDrive\\Desktop\\projects\\urban congestion\\models\\d3qn_20260411_200143\\best\\best_model.pt"
+    },
+    "123": {
+      "eval": {
+        "mean_reward": -19.600900000000017,
+        "std_reward": 1.9181268310515815,
+        "mean_length": 720.0,
+        "episodes": 5,
+        "avg_waiting_time": 9.689166666666667,
+        "avg_queue_length": 2.460277777777778,
+        "avg_throughput": 423.4,
+        "throughput": 423.4
+      },
+      "reward_curve_mean": -19.207266666666683,
+      "reward_curve_std": 1.26563651004369,
+      "loss_mean": 0.0018862316067027498,
+      "loss_std": 0.0009528613972745726,
+      "loss_nan": false,
+      "epsilon_final": 0.05,
+      "n_eval_points": 3,
+      "n_loss_points": 6251,
+      "run_name": "d3qn_20260411_200829",
+      "model_path": "C:\\Users\\Asus\\OneDrive\\Desktop\\projects\\urban congestion\\models\\d3qn_20260411_200829\\best\\best_model.pt"
+    },
+    "999": {
+      "eval": {
+        "mean_reward": -20.66070000000001,
+        "std_reward": 0.9693028216197421,
+        "mean_length": 720.0,
+        "episodes": 5,
+        "avg_waiting_time": 10.173055555555555,
+        "avg_queue_length": 2.5030555555555556,
+        "avg_throughput": 423.2,
+        "throughput": 423.2
+      },
+      "reward_curve_mean": -20.12636666666668,
+      "reward_curve_std": 1.0611153325105092,
+      "loss_mean": 0.004092926411756,
+      "loss_std": 0.0030698524395854783,
+      "loss_nan": false,
+      "epsilon_final": 0.05,
+      "n_eval_points": 3,
+      "n_loss_points": 6251,
+      "run_name": "d3qn_20260411_201510",
+      "model_path": "C:\\Users\\Asus\\OneDrive\\Desktop\\projects\\urban congestion\\models\\d3qn_20260411_201510\\best\\best_model.pt"
+    }
+  },
+  "aggregate": {
+    "mean_reward": -20.234033333333343,
+    "std_reward": 0.45662922474244383,
+    "avg_waiting_time": 9.961944444444446,
+    "avg_queue_length": 2.482685185185185,
+    "avg_throughput": 421.1333333333334,
+    "loss_mean": 0.0028703792443878287,
+    "loss_std": 0.0009165155908756054,
+    "any_nan_loss": false
+  }
+}

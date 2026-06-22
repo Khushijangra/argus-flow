@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-12T02:36:43.154364+05:30 by Eclipse SUMO sumo 1.26.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\single_intersection.net.xml"/>
+        <route-files value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\single_intersection.rou.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <waiting-time-memory value="1000"/>
+    </processing>
+
+    <report>
+        <no-warnings value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="57371"/>
+    </traci_server>
+
+    <random_number>
+        <random value="true"/>
+    </random_number>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="micro" version="1.26.0" time="2010.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="!bus_ew" state="0" edges="east_in west_out"/>
+    <route id="!bus_ns" state="0" edges="north_in south_out"/>
+    <route id="!east_north" state="0" edges="east_in north_out"/>
+    <route id="!east_south" state="0" edges="east_in south_out"/>
+    <route id="!east_west" state="0" edges="east_in west_out"/>
+    <route id="!north_east" state="0" edges="north_in east_out"/>
+    <route id="!north_south" state="0" edges="north_in south_out"/>
+    <route id="!north_west" state="0" edges="north_in west_out"/>
+    <route id="!south_east" state="0" edges="south_in east_out"/>
+    <route id="!south_north" state="0" edges="south_in north_out"/>
+    <route id="!south_west" state="0" edges="south_in west_out"/>
+    <route id="!west_east" state="0" edges="west_in east_out"/>
+    <route id="!west_north" state="0" edges="west_in north_out"/>
+    <route id="!west_south" state="0" edges="west_in south_out"/>
+    <delay number="66" begin="1415" end="1349" depart="32.00" time="117814.00"/>
+    <vType id="bus" length="12.00" minGap="3.00" maxSpeed="11.11" color="blue" accel="1.2" decel="4.0" sigma="0.5"/>
+    <vType id="car" length="5.00" minGap="2.50" maxSpeed="13.89" color="yellow" accel="2.6" decel="4.5" sigma="0.5"/>
+    <vehicle id="west_north.40" type="car" depart="1907.00" departLane="best" departSpeed="max" route="!west_north" distance="508.95 0" speedFactor="0.9227" reroute="1" state="262710 1907000 1 5.10 0 29.59 2009000 0 0" pos="415.25 410.25 11.57" speed="11.57 11.88" angle="0.00" posLat="0.00" waitingTime="1000000 2 38000 42000 45000 52000">
+        <device id="routing_west_north.40" state="0 1907000"/>
+    </vehicle>
+    <vehicle id="east_west.179" type="car" depart="1917.00" departLane="best" departSpeed="max" route="!east_west" distance="510.4 0" speedFactor="0.9086" reroute="1" state="262710 1917000 1 5.10 0 14.37 2009000 0 0" pos="474.40 469.40 12.09" speed="12.09 11.42" angle="270.00" posLat="0.00" waitingTime="1000000 1 45000 50000">
+        <device id="routing_east_west.179" state="0 1917000"/>
+    </vehicle>
+    <vehicle id="north_east.51" type="car" depart="1917.00" departLane="best" departSpeed="max" route="!north_east" distance="508.95 0" speedFactor="1.0724" reroute="1" state="262710 1917000 1 5.10 0 39.15 2009000 0 0" pos="223.30 218.30 13.60" speed="13.60 12.73" angle="90.00" posLat="0.00" waitingTime="1000000 2 21000 30000 35000 44000">
+        <device id="routing_north_east.51" state="0 1917000"/>
+    </vehicle>
+    <vehicle id="east_west.180" type="car" depart="1929.00" departLane="best" departSpeed="max" route="!east_west" distance="510.4 0" speedFactor="0.9125" reroute="1" state="262710 1929000 1 5.10 0 4.02 2009000 0 0" pos="457.78 452.78 12.14" speed="12.14 12.46" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.180" state="0 1929000"/>
+    </vehicle>
+    <vehicle id="west_east.197" type="car" depart="1930.00" departLane="best" departSpeed="max" route="!west_east" distance="510.4 0" speedFactor="0.9165" reroute="1" state="262710 1930000 1 5.10 0 4.53 2009000 0 0" pos="442.75 437.75 12.34" speed="12.34 11.88" angle="90.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_west_east.197" state="0 1930000"/>
+    </vehicle>
+    <vehicle id="north_east.52" type="car" depart="1930.00" departLane="best" departSpeed="max" route="!north_east" distance="508.95 0" speedFactor="1.0992" reroute="1" state="262710 1930000 1 5.10 0 41.91 2009000 0 0" pos="4.93 14.27 7.76" speed="7.76 6.16" angle="90.11" posLat="0.00" waitingTime="1000000 4 4000 10000 15000 18000 20000 28000 34000 40000">
+        <device id="routing_north_east.52" state="0 1930000"/>
+    </vehicle>
+    <vehicle id="north_south.296" type="car" depart="1931.00" departLane="best" departSpeed="max" route="!north_south" distance="510.4 0" speedFactor="1.0267" reroute="1" state="262710 1931000 1 5.10 0 12.66 2009000 0 0" pos="402.27 397.27 13.24" speed="13.24 13.16" angle="180.00" posLat="0.00" waitingTime="1000000 1 35000 38000">
+        <device id="routing_north_south.296" state="0 1931000"/>
+    </vehicle>
+    <vehicle id="east_west.181" type="car" depart="1931.00" departLane="best" departSpeed="max" route="!east_west" distance="510.4 0" speedFactor="0.9806" reroute="1" state="262710 1931000 1 5.10 0 7.67 2009000 0 0" pos="452.62 447.62 11.63" speed="11.63 12.31" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.181" state="0 1931000"/>
+    </vehicle>
+    <vehicle id="south_north.275" type="car" depart="1933.00" departLane="best" departSpeed="max" route="!south_north" distance="510.4 0" speedFactor="1.0143" reroute="1" state="262710 1933000 1 5.10 0 12.18 2009000 0 0" pos="381.15 376.15 12.70" speed="12.70 12.64" angle="0.00" posLat="0.00" waitingTime="1000000 1 35000 37000">
+        <device id="routing_south_north.275" state="0 1933000"/>
+    </vehicle>
+    <vehicle id="north_west.58" type="car" depart="1934.00" departLane="best" departSpeed="max" route="!north_west" distance="498.63 0" speedFactor="0.8198" reroute="1" state="262710 1934000 1 5.10 0 5.30 2009000 0 0" pos="289.91 284.91 10.87" speed="10.87 10.43" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_west.58" state="0 1934000"/>
+    </vehicle>
+    <vehicle id="east_south.34" type="car" depart="1935.00" departLane="best" departSpeed="max" route="!east_south" distance="508.95 0" speedFactor="1.0107" reroute="1" state="262710 1935000 1 5.10 0 7.00 2009000 0 0" pos="417.52 412.52 13.81" speed="13.81 12.86" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_south.34" state="0 1935000"/>
+    </vehicle>
+    <vehicle id="west_east.198" type="car" depart="1938.00" departLane="best" departSpeed="max" route="!west_east" distance="510.4 0" speedFactor="0.9541" reroute="1" state="262710 1938000 1 5.10 0 13.09 2009000 0 0" pos="262.15 257.15 11.99" speed="11.99 12.67" angle="90.00" posLat="0.00" waitingTime="1000000 1 25000 30000">
+        <device id="routing_west_east.198" state="0 1938000"/>
+    </vehicle>
+    <vehicle id="north_south.297" type="car" depart="1939.00" departLane="best" departSpeed="max" route="!north_south" distance="510.4 0" speedFactor="1.0592" reroute="1" state="262710 1939000 1 5.10 0 10.59 2009000 0 0" pos="319.86 314.86 13.38" speed="13.38 13.70" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.297" state="0 1939000"/>
+    </vehicle>
+    <vehicle id="south_north.276" type="car" depart="1941.00" departLane="best" departSpeed="max" route="!south_north" distance="510.4 0" speedFactor="0.9017" reroute="1" state="262710 1941000 1 5.10 0 3.80 2009000 0 0" pos="298.78 293.78 12.36" speed="12.36 11.67" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.276" state="0 1941000"/>
+    </vehicle>
+    <vehicle id="west_south.48" type="car" depart="1941.00" departLane="best" departSpeed="max" route="!west_south" distance="498.63 0" speedFactor="0.9750" reroute="1" state="262710 1941000 1 5.10 0 12.71 2009000 0 0" pos="242.79 237.79 12.46" speed="12.46 12.54" angle="180.00" posLat="0.00" waitingTime="1000000 1 24000 28000">
+        <device id="routing_west_south.48" state="0 1941000"/>
+    </vehicle>
+    <vehicle id="east_north.37" type="car" depart="1942.00" departLane="best" departSpeed="max" route="!east_north" distance="498.63 0" speedFactor="1.0386" reroute="1" state="262710 1942000 1 5.10 0 10.89 2009000 0 0" pos="280.64 275.64 13.13" speed="13.13 13.65" angle="0.00" posLat="0.00" waitingTime="1000000 1 25000 28000">
+        <device id="routing_east_north.37" state="0 1942000"/>
+    </vehicle>
+    <vehicle id="south_north.277" type="car" depart="1943.00" departLane="best" departSpeed="max" route="!south_north" distance="510.4 0" speedFactor="1.2508" reroute="1" state="262710 1943000 1 5.10 0 3.40 2009000 0 0" pos="364.18 359.18 12.88" speed="12.88 12.99" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.277" state="0 1943000"/>
+    </vehicle>
+    <vehicle id="east_west.182" type="car" depart="1944.00" departLane="best" departSpeed="max" route="!east_west" distance="510.4 0" speedFactor="1.1490" reroute="1" state="262710 1944000 1 5.10 0 8.84 2009000 0 0" pos="274.80 269.80 13.16" speed="13.16 12.85" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.182" state="0 1944000"/>
+    </vehicle>
+    <vehicle id="north_south.298" type="car" depart="1946.00" departLane="best" departSpeed="max" route="!north_south" distance="510.4 0" speedFactor="0.7521" reroute="1" state="262710 1946000 1 5.10 0 6.51 2009000 0 0" pos="84.85 79.85 10.15" speed="10.15 9.98" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.298" state="0 1946000"/>
+    </vehicle>
+    <vehicle id="south_north.278" type="car" depart="1947.00" departLane="best" departSpeed="max" route="!south_north" distance="510.4 0" speedFactor="1.0176" reroute="1" state="262710 1947000 1 5.10 0 2.98 2009000 0 0" pos="314.48 309.48 13.28" speed="13.28 13.00" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.278" state="0 1947000"/>
+    </vehicle>
+    <vehicle id="north_south.299" type="car" depart="1951.00" departLane="best" departSpeed="max" route="!north_south" distance="510.4 0" speedFactor="1.0303" reroute="1" state="262710 1951000 1 5.10 0 11.91 2009000 0 0" pos="134.87 129.87 13.45" speed="13.45 13.11" angle="180.00" posLat="0.00" waitingTime="1000000 1 15000 19000">
+        <device id="routing_north_south.299" state="0 1951000"/>
+    </vehicle>
+    <vehicle id="south_north.279" type="car" depart="1952.00" departLane="best" departSpeed="max" route="!south_north" distance="510.4 0" speedFactor="0.9550" reroute="1" state="262710 1952000 1 5.10 0 8.57 2009000 0 0" pos="137.07 132.07 12.43" speed="12.43 11.98" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.279" state="0 1952000"/>
+    </vehicle>
+    <vehicle id="east_west.183" type="car" depart="1953.00" departLane="best" departSpeed="max" route="!east_west" distance="510.4 0" speedFactor="0.9918" reroute="1" state="262710 1953000 1 5.10 0 5.93 2009000 0 0" pos="184.50 179.50 12.71" speed="12.71 13.62" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.183" state="0 1953000"/>
+    </vehicle>
+    <vehicle id="west_east.199" type="car" depart="1953.00" departLane="best" departSpeed="max" route="!west_east" distance="510.4 0" speedFactor="1.0565" reroute="1" state="262710 1953000 1 5.10 0 3.47 2009000 0 0" pos="224.41 219.41 13.73" speed="13.73 13.64" angle="90.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_west_east.199" state="0 1953000"/>
+    </vehicle>
+    <vehicle id="south_east.64" type="car" depart="1955.00" departLane="best" departSpeed="max" route="!south_east" distance="498.63 0" speedFactor="1.1171" reroute="1" state="262710 1955000 1 5.10 0 9.09 2009000 0 0" pos="119.71 114.71 13.54" speed="13.54 13.69" angle="90.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_east.64" state="0 1955000"/>
+    </vehicle>
+    <vehicle id="south_west.57" type="car" depart="1956.00" departLane="best" departSpeed="max" route="!south_west" distance="494.61 0" speedFactor="1.0069" reroute="1" state="262710 1956000 0 5.10 0 16.38 2009000 0 0" pos="10.87 5.87 5.51" speed="5.51 4.01" angle="292.65" posLat="0.00" waitingTime="1000000 1 3000 12000">
+        <device id="routing_south_west.57" state="0 1956000"/>
+    </vehicle>
+    <vehicle id="north_south.300" type="car" depart="1957.00" departLane="best" departSpeed="max" route="!north_south" distance="510.4 0" speedFactor="1.1292" reroute="1" state="262710 1957000 1 5.10 0 13.18 2009000 0 0" pos="33.94 28.94 12.82" speed="12.82 12.23" angle="180.00" posLat="0.00" waitingTime="1000000 1 7000 9000">
+        <device id="routing_north_south.300" state="0 1957000"/>
+    </vehicle>
+    <vehicle id="north_south.301" type="car" depart="1959.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="1.1463" reroute="1" state="262710 1959000 0 5.10 1000 15.19 2009000 0 0" pos="488.59 483.59 0.03" speed="0.03 0.77" angle="180.00" posLat="0.00" waitingTime="1000000 1 0 1000">
+        <device id="routing_north_south.301" state="0 1959000"/>
+    </vehicle>
+    <vehicle id="south_north.280" type="car" depart="1961.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="0.9984" reroute="1" state="262710 1961000 0 5.10 4000 13.14 2009000 0 0" pos="488.60 483.60 0.00" speed="0.00 0.01" angle="0.00" posLat="0.00" waitingTime="1000000 2 0 4000 5000 8000">
+        <device id="routing_south_north.280" state="0 1961000"/>
+    </vehicle>
+    <vehicle id="north_south.302" type="car" depart="1962.00" departLane="best" departSpeed="max" route="!north_south" distance="510.4 0" speedFactor="0.9464" reroute="1" state="262710 1962000 1 5.10 0 2.64 2009000 0 0" pos="77.77 72.77 12.64" speed="12.64 13.03" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.302" state="0 1962000"/>
+    </vehicle>
+    <vehicle id="west_east.200" type="car" depart="1962.00" departLane="best" departSpeed="max" route="!west_east" distance="489.6 0" speedFactor="0.9780" reroute="1" state="262710 1962000 0 5.10 0 11.18 2009000 0 0" pos="2.11 486.71 2.08" speed="2.08 0.15" angle="90.00" posLat="0.00" waitingTime="1000000 2 2000 3000 5000 7000">
+        <device id="routing_west_east.200" state="0 1962000"/>
+    </vehicle>
+    <vehicle id="north_east.53" type="car" depart="1962.00" departLane="best" departSpeed="max" route="!north_east" distance="0 0" speedFactor="1.1602" reroute="1" state="262710 1962000 0 5.10 0 12.74 2009000 0 0" pos="480.99 475.99 0.87" speed="0.87 0.91" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_east.53" state="0 1962000"/>
+    </vehicle>
+    <vehicle id="east_north.38" type="car" depart="1962.00" departLane="best" departSpeed="max" route="!east_north" distance="498.63 0" speedFactor="0.9687" reroute="1" state="262710 1962000 1 5.10 0 8.72 2009000 0 0" pos="11.63 6.63 6.76" speed="6.76 5.26" angle="0.00" posLat="0.00" waitingTime="1000000 1 5000 6000">
+        <device id="routing_east_north.38" state="0 1962000"/>
+    </vehicle>
+    <vehicle id="east_south.35" type="car" depart="1964.00" departLane="best" departSpeed="max" route="!east_south" distance="489.6 0" speedFactor="1.2416" reroute="1" state="262710 1964000 0 5.10 3000 9.68 2009000 0 0" pos="4.91 489.51 0.00" speed="0.00 0.00" angle="262.00" posLat="0.00" waitingTime="1000000 2 0 3000 5000 7000">
+        <device id="routing_east_south.35" state="0 1964000"/>
+    </vehicle>
+    <vehicle id="south_north.281" type="car" depart="1966.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="1.0631" reroute="1" state="262710 1966000 0 5.10 0 8.19 2009000 0 0" pos="488.59 483.59 0.84" speed="0.84 1.54" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.281" state="0 1966000"/>
+    </vehicle>
+    <vehicle id="north_south.303" type="car" depart="1967.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="0.9814" reroute="1" state="262710 1967000 0 5.10 1000 6.53 2009000 0 0" pos="488.60 483.60 0.02" speed="0.02 0.35" angle="180.00" posLat="0.00" waitingTime="1000000 1 0 1000">
+        <device id="routing_north_south.303" state="0 1967000"/>
+    </vehicle>
+    <vehicle id="south_north.282" type="car" depart="1967.00" departLane="best" departSpeed="max" route="!south_north" distance="510.4 0" speedFactor="1.1530" reroute="1" state="262710 1967000 1 5.10 0 1.94 2009000 0 0" pos="51.19 46.19 13.74" speed="13.74 13.15" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.282" state="0 1967000"/>
+    </vehicle>
+    <vehicle id="north_south.304" type="car" depart="1969.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="0.8360" reroute="1" state="262710 1969000 0 5.10 0 2.06 2009000 0 0" pos="445.66 440.66 10.40" speed="10.40 11.04" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.304" state="0 1969000"/>
+    </vehicle>
+    <vehicle id="south_east.65" type="car" depart="1969.00" departLane="best" departSpeed="max" route="!south_east" distance="0 0" speedFactor="0.9217" reroute="1" state="262710 1969000 0 5.10 0 2.91 2009000 0 0" pos="479.88 474.88 4.62" speed="4.62 7.94" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_east.65" state="0 1969000"/>
+    </vehicle>
+    <vehicle id="south_north.283" type="car" depart="1974.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="0.8591" reroute="1" state="262710 1974000 0 5.10 0 2.20 2009000 0 0" pos="396.52 391.52 10.67" speed="10.67 11.41" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.283" state="0 1974000"/>
+    </vehicle>
+    <vehicle id="north_south.305" type="car" depart="1975.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="1.0914" reroute="1" state="262710 1975000 0 5.10 0 1.60 2009000 0 0" pos="455.12 450.12 13.29" speed="13.29 12.84" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.305" state="0 1975000"/>
+    </vehicle>
+    <vehicle id="north_south.306" type="car" depart="1976.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="0.9910" reroute="1" state="262710 1976000 0 5.10 0 2.09 2009000 0 0" pos="430.60 425.60 12.93" speed="12.93 12.52" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.306" state="0 1976000"/>
+    </vehicle>
+    <vehicle id="north_south.307" type="car" depart="1980.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="0.9354" reroute="1" state="262710 1980000 0 5.10 0 1.51 2009000 0 0" pos="362.33 357.33 11.85" speed="11.85 11.77" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.307" state="0 1980000"/>
+    </vehicle>
+    <vehicle id="north_south.308" type="car" depart="1982.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="1.0071" reroute="1" state="262710 1982000 0 5.10 0 1.35 2009000 0 0" pos="361.41 356.41 13.31" speed="13.31 13.45" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.308" state="0 1982000"/>
+    </vehicle>
+    <vehicle id="south_north.284" type="car" depart="1982.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="0.8594" reroute="1" state="262710 1982000 0 5.10 0 1.58 2009000 0 0" pos="308.52 303.52 10.98" speed="10.98 11.89" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.284" state="0 1982000"/>
+    </vehicle>
+    <vehicle id="east_west.184" type="car" depart="1982.00" departLane="best" departSpeed="max" route="!east_west" distance="0 0" speedFactor="0.9468" reroute="1" state="262710 1982000 0 5.10 0 1.40 2009000 0 0" pos="341.74 336.74 11.86" speed="11.86 12.22" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.184" state="0 1982000"/>
+    </vehicle>
+    <vehicle id="north_south.309" type="car" depart="1987.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="1.0658" reroute="1" state="262710 1987000 0 5.10 0 1.01 2009000 0 0" pos="296.67 291.67 13.88" speed="13.88 12.70" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.309" state="0 1987000"/>
+    </vehicle>
+    <vehicle id="south_north.285" type="car" depart="1989.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="1.1250" reroute="1" state="262710 1989000 0 5.10 0 0.88 2009000 0 0" pos="270.63 265.63 12.73" speed="12.73 12.83" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.285" state="0 1989000"/>
+    </vehicle>
+    <vehicle id="east_south.36" type="car" depart="1990.00" departLane="best" departSpeed="max" route="!east_south" distance="0 0" speedFactor="0.9668" reroute="1" state="262710 1990000 0 5.10 0 0.74 2009000 0 0" pos="250.26 245.26 12.60" speed="12.60 13.28" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_south.36" state="0 1990000"/>
+    </vehicle>
+    <vehicle id="south_north.286" type="car" depart="1991.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="0.9861" reroute="1" state="262710 1991000 0 5.10 0 0.82 2009000 0 0" pos="240.48 235.48 12.69" speed="12.69 12.79" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.286" state="0 1991000"/>
+    </vehicle>
+    <vehicle id="south_north.287" type="car" depart="1994.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="0.8941" reroute="1" state="262710 1994000 0 5.10 0 0.77 2009000 0 0" pos="181.81 176.81 12.03" speed="12.03 11.38" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.287" state="0 1994000"/>
+    </vehicle>
+    <vehicle id="east_west.185" type="car" depart="1994.00" departLane="best" departSpeed="max" route="!east_west" distance="0 0" speedFactor="0.6866" reroute="1" state="262710 1994000 0 5.10 0 0.79 2009000 0 0" pos="140.64 135.64 9.03" speed="9.03 9.48" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.185" state="0 1994000"/>
+    </vehicle>
+    <vehicle id="north_east.54" type="car" depart="1994.00" departLane="best" departSpeed="max" route="!north_east" distance="0 0" speedFactor="1.0439" reroute="1" state="262710 1994000 0 5.10 0 0.57 2009000 0 0" pos="205.55 200.55 13.56" speed="13.56 13.77" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_east.54" state="0 1994000"/>
+    </vehicle>
+    <vehicle id="south_north.288" type="car" depart="1995.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="0.9876" reroute="1" state="262710 1995000 0 5.10 0 0.66 2009000 0 0" pos="188.05 183.05 12.60" speed="12.60 12.91" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.288" state="0 1995000"/>
+    </vehicle>
+    <vehicle id="north_south.310" type="car" depart="1996.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="1.1190" reroute="1" state="262710 1996000 0 5.10 0 0.66 2009000 0 0" pos="176.57 171.57 13.40" speed="13.40 13.49" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.310" state="0 1996000"/>
+    </vehicle>
+    <vehicle id="north_south.311" type="car" depart="1997.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="1.1889" reroute="1" state="262710 1997000 0 5.10 0 0.47 2009000 0 0" pos="165.20 160.20 13.82" speed="13.82 13.50" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.311" state="0 1997000"/>
+    </vehicle>
+    <vehicle id="east_north.39" type="car" depart="1997.00" departLane="best" departSpeed="max" route="!east_north" distance="0 0" speedFactor="0.9292" reroute="1" state="262710 1997000 0 5.10 0 2.87 2009000 0 0" pos="122.95 117.95 10.03" speed="10.03 9.50" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_north.39" state="0 1997000"/>
+    </vehicle>
+    <vehicle id="north_south.312" type="car" depart="1999.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="1.0512" reroute="1" state="262710 1999000 0 5.10 0 0.47 2009000 0 0" pos="137.41 132.41 13.75" speed="13.75 12.81" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.312" state="0 1999000"/>
+    </vehicle>
+    <vehicle id="east_west.186" type="car" depart="2000.00" departLane="best" departSpeed="max" route="!east_west" distance="0 0" speedFactor="1.2628" reroute="1" state="262710 2000000 0 5.10 0 0.43 2009000 0 0" pos="124.07 119.07 13.26" speed="13.26 13.32" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.186" state="0 2000000"/>
+    </vehicle>
+    <vehicle id="north_south.313" type="car" depart="2001.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="1.1162" reroute="1" state="262710 2001000 0 5.10 0 0.38 2009000 0 0" pos="110.94 105.94 12.81" speed="12.81 13.48" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.313" state="0 2001000"/>
+    </vehicle>
+    <vehicle id="east_west.187" type="car" depart="2001.00" departLane="best" departSpeed="max" route="!east_west" distance="0 0" speedFactor="0.8769" reroute="1" state="262710 2001000 0 5.10 0 0.41 2009000 0 0" pos="97.53 92.53 11.44" speed="11.44 11.65" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.187" state="0 2001000"/>
+    </vehicle>
+    <vehicle id="south_east.66" type="car" depart="2002.00" departLane="best" departSpeed="max" route="!south_east" distance="0 0" speedFactor="0.8390" reroute="1" state="262710 2002000 0 5.10 0 0.21 2009000 0 0" pos="84.26 79.26 10.98" speed="10.98 11.53" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_east.66" state="0 2002000"/>
+    </vehicle>
+    <vehicle id="south_north.289" type="car" depart="2003.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="1.1225" reroute="1" state="262710 2003000 0 5.10 0 0.30 2009000 0 0" pos="84.30 79.30 13.72" speed="13.72 13.38" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.289" state="0 2003000"/>
+    </vehicle>
+    <vehicle id="north_south.314" type="car" depart="2006.00" departLane="best" departSpeed="max" route="!north_south" distance="0 0" speedFactor="0.8781" reroute="1" state="262710 2006000 0 5.10 0 0.17 2009000 0 0" pos="39.57 34.57 11.29" speed="11.29 12.04" angle="180.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_north_south.314" state="0 2006000"/>
+    </vehicle>
+    <vehicle id="east_west.188" type="car" depart="2006.00" departLane="best" departSpeed="max" route="!east_west" distance="0 0" speedFactor="0.9626" reroute="1" state="262710 2006000 0 5.10 0 0.19 2009000 0 0" pos="42.64 37.64 12.08" speed="12.08 12.86" angle="270.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_east_west.188" state="0 2006000"/>
+    </vehicle>
+    <vehicle id="south_north.290" type="car" depart="2008.00" departLane="best" departSpeed="max" route="!south_north" distance="0 0" speedFactor="0.7877" reroute="1" state="262710 2008000 0 5.10 0 0.10 2009000 0 0" pos="14.96 9.96 9.86" speed="9.86 10.94" angle="0.00" posLat="0.00" waitingTime="1000000 0">
+        <device id="routing_south_north.290" state="0 2008000"/>
+    </vehicle>
+    <flowState id="north_south" type="car" begin="0.00" end="3600.00" probability="0.14999999999999999445" departLane="best" departSpeed="max" route="!north_south" done="315" index="315" reroute="1"/>
+    <flowState id="south_north" type="car" begin="0.00" end="3600.00" probability="0.14999999999999999445" departLane="best" departSpeed="max" route="!south_north" done="291" index="291" reroute="1"/>
+    <flowState id="east_west" type="car" begin="0.00" end="3600.00" probability="0.10000000000000000555" departLane="best" departSpeed="max" route="!east_west" done="189" index="189" reroute="1"/>
+    <flowState id="west_east" type="car" begin="0.00" end="3600.00" probability="0.10000000000000000555" departLane="best" departSpeed="max" route="!west_east" done="201" index="201" reroute="1"/>
+    <flowState id="north_east" type="car" begin="0.00" end="3600.00" probability="0.02999999999999999889" departLane="best" departSpeed="max" route="!north_east" done="55" index="55" reroute="1"/>
+    <flowState id="north_west" type="car" begin="0.00" end="3600.00" probability="0.02999999999999999889" departLane="best" departSpeed="max" route="!north_west" done="59" index="59" reroute="1"/>
+    <flowState id="south_east" type="car" begin="0.00" end="3600.00" probability="0.02999999999999999889" departLane="best" departSpeed="max" route="!south_east" done="67" index="67" reroute="1"/>
+    <flowState id="south_west" type="car" begin="0.00" end="3600.00" probability="0.02999999999999999889" departLane="best" departSpeed="max" route="!south_west" done="58" index="58" reroute="1"/>
+    <flowState id="east_north" type="car" begin="0.00" end="3600.00" probability="0.02000000000000000042" departLane="best" departSpeed="max" route="!east_north" done="40" index="40" reroute="1"/>
+    <flowState id="east_south" type="car" begin="0.00" end="3600.00" probability="0.02000000000000000042" departLane="best" departSpeed="max" route="!east_south" done="37" index="37" reroute="1"/>
+    <flowState id="west_north" type="car" begin="0.00" end="3600.00" probability="0.02000000000000000042" departLane="best" departSpeed="max" route="!west_north" done="41" index="41" reroute="1"/>
+    <flowState id="west_south" type="car" begin="0.00" end="3600.00" probability="0.02000000000000000042" departLane="best" departSpeed="max" route="!west_south" done="49" index="49" reroute="1"/>
+    <flowState id="bus_ns" type="bus" begin="0.00" end="3600.00" period="300" departLane="0" departSpeed="max" next="2100.00" route="!bus_ns" done="7" index="7" reroute="1"/>
+    <flowState id="bus_ew" type="bus" begin="60.00" end="3600.00" period="360" departLane="0" departSpeed="max" next="2160.00" route="!bus_ew" done="6" index="6" reroute="1"/>
+    <lane id=":center_7_0">
+        <vehicles value="east_south.35"/>
+    </lane>
+    <lane id=":center_18_0">
+        <vehicles value="south_west.57"/>
+    </lane>
+    <lane id=":center_13_0">
+        <vehicles value="west_east.200"/>
+    </lane>
+    <lane id="east_in_0">
+        <vehicles value="east_west.187 east_north.39 east_west.185 east_west.184"/>
+    </lane>
+    <lane id="east_in_1">
+        <vehicles value="east_west.188 east_west.186 east_south.36"/>
+    </lane>
+    <lane id="east_out_0">
+        <vehicles value="south_east.64 west_east.199 west_east.198 west_east.197"/>
+    </lane>
+    <lane id="east_out_1">
+        <vehicles value="north_east.52 north_east.51"/>
+    </lane>
+    <lane id="north_in_0">
+        <vehicles value="north_south.314 north_south.312 north_south.310 north_south.309 north_south.308 north_south.304 north_south.303"/>
+    </lane>
+    <lane id="north_in_1">
+        <vehicles value="north_south.313 north_south.311 north_east.54 north_south.307 north_south.306 north_south.305 north_east.53 north_south.301"/>
+    </lane>
+    <lane id="north_out_0">
+        <vehicles value="east_north.38 south_north.282 south_north.279 south_north.276 south_north.275 west_north.40"/>
+    </lane>
+    <lane id="north_out_1">
+        <vehicles value="east_north.37 south_north.278 south_north.277"/>
+    </lane>
+    <lane id="south_in_0">
+        <vehicles value="south_north.290 south_east.66 south_north.288 south_north.286 south_north.284 south_north.283 south_east.65 south_north.280"/>
+    </lane>
+    <lane id="south_in_1">
+        <vehicles value="south_north.289 south_north.287 south_north.285 south_north.281"/>
+    </lane>
+    <lane id="south_out_0">
+        <vehicles value="north_south.300 north_south.298 north_south.299 west_south.48 north_south.297 north_south.296"/>
+    </lane>
+    <lane id="south_out_1">
+        <vehicles value="north_south.302 east_south.34"/>
+    </lane>
+    <lane id="west_out_0">
+        <vehicles value="east_west.183 north_west.58 east_west.181 east_west.179"/>
+    </lane>
+    <lane id="west_out_1">
+        <vehicles value="east_west.182 east_west.180"/>
+    </lane>
+    <tlLogic id="center" programID="0" phase="2" duration="0" active="1"/>
+    <routingEngine last="2010000" index="30">
+        <edge id=":center_0" speed="6.48" pastSpeed="4.18 4.81 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 5.91 5.04 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51"/>
+        <edge id=":center_1" speed="12.16" pastSpeed="13.89 13.89 13.89 10.46 11.17 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.79 8.85 9.63 8.79 10.45 11.18 12.39 12.40 13.89 9.06 10.20 11.35 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.32 13.35 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.71 1.99 3.62 5.18 4.93 6.14 9.54 10.80 10.82 10.58 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 1.71 3.52 5.45 7.95 9.94 10.87 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 8.02 8.80 9.53 10.30 13.89 12.74 12.84 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 8.11 3.38 5.05 5.99 6.57 11.55 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 8.11 9.08 9.92 10.63 13.64 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 1.98 4.11 5.62 5.99 6.34 8.13 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 8.13 8.82 9.72 10.74 13.89"/>
+        <edge id=":center_3" speed="7.51" pastSpeed="0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 9.26 9.26 9.26 9.26 9.26 9.26 2.17 2.78 0.50 0.25 0.18 0.04 0.00 0.00 0.00 0.00 0.00 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 5.90 2.96 0.23 0.04 0.01 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 5.28 3.20 0.46 0.01 0.00 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 5.61 1.11 0.04 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.32 2.47 0.61 0.33 0.18"/>
+        <edge id=":center_16" speed="8.82" pastSpeed="9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 1.89 3.76 5.86 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 1.82 3.63 6.16 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.04 3.54 6.12 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.00 4.25 5.87 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.19 4.19 5.85 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26"/>
+        <edge id=":center_4" speed="6.34" pastSpeed="6.51 6.51 6.51 6.51 6.51 1.37 3.60 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 3.41 5.39 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.07 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 1.52 3.68 6.51 4.87 5.11 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 2.26 4.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51"/>
+        <edge id=":center_5" speed="12.70" pastSpeed="13.89 13.89 13.89 13.89 13.89 7.96 9.17 10.03 10.92 13.89 13.89 9.17 8.56 9.36 10.09 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.27 13.29 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 0.48 1.66 3.77 6.17 8.71 10.12 9.68 12.78 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.73 8.99 10.25 9.99 11.28 12.28 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 8.21 9.34 10.17 13.89 9.25 9.57 9.99 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.78 8.78 9.89 6.02 6.81 7.71 8.64 9.54 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 8.23 9.10 9.88 10.14 10.76 11.94 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
+        <edge id=":center_7" speed="8.46" pastSpeed="9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.06 3.78 0.07 0.00 0.00 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 6.66 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.13 2.80 0.72 0.20 0.04 0.02 0.00 0.00 0.00 0.00 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 4.63 0.38 9.26 9.26 9.26 9.26 9.26"/>
+        <edge id=":center_17" speed="9.09" pastSpeed="9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 8.35 8.61 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.54 4.25 5.82 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.74 4.45 6.94 9.26 9.26"/>
+        <edge id=":center_8" speed="6.50" pastSpeed="6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 5.64 6.03 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.66 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 5.59 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.01 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51"/>
+        <edge id=":center_9" speed="11.85" pastSpeed="13.32 13.29 13.89 13.20 13.46 13.87 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 8.29 9.50 10.19 13.89 13.89 13.89 13.89 13.89 13.89 13.73 13.61 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 2.27 3.94 5.71 6.48 7.00 8.22 8.38 10.74 13.81 13.82 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.98 8.74 9.71 8.58 10.56 11.47 11.44 11.60 10.68 11.92 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 1.90 3.93 6.13 6.91 6.97 8.60 11.88 12.15 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.74 8.47 9.28 9.99 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.55 8.61 9.46 8.68 10.40 11.62 10.62 6.17 9.70 10.97 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 2.12 3.96 5.78 6.50 7.19 10.76 13.89 13.89 10.26 11.02 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 1.67 2.06 3.91 5.78 5.74 6.71 10.11 10.86 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.61 8.33 9.24 10.00"/>
+        <edge id=":center_11" speed="7.76" pastSpeed="9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.80 2.59 0.58 0.04 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 1.30 3.62 0.53 0.32 0.14 0.00 0.00 0.00 0.00 0.00 0.00 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 5.22 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.00 2.88 0.70 0.33 0.01 0.00 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 3.82 9.26 6.54 2.13 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26"/>
+        <edge id=":center_18" speed="8.91" pastSpeed="9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 1.45 4.01 5.51 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.25 3.88 5.98 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 6.95 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 1.99 4.52 7.05 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 6.33 6.03 9.26 4.54 6.28 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26"/>
+        <edge id=":center_12" speed="6.44" pastSpeed="6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 5.68 5.30 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 5.81 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 1.32 3.90 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 5.40 6.09 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 5.20 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51 6.51"/>
+        <edge id=":center_13" speed="12.54" pastSpeed="13.89 13.89 13.89 13.89 13.89 8.19 8.86 10.13 11.13 13.89 13.89 12.52 13.59 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.02 7.98 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.33 8.37 9.50 10.36 13.89 13.89 13.35 13.47 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.98 8.94 9.66 10.65 10.96 11.67 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 1.74 3.82 5.98 7.98 9.75 10.11 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 8.15 9.31 10.15 10.96 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.64 1.73 3.01 4.48 5.68 6.45 7.85 7.57 9.87 10.37 11.77 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 7.77 9.00 9.69 8.70 10.33 11.43 12.31 12.90 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
+        <edge id=":center_15" speed="8.67" pastSpeed="9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 4.19 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 5.52 1.05 0.25 0.09 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 1.66 4.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 1.82 3.91 0.10 0.05 0.02 0.01 0.00 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26"/>
+        <edge id=":center_19" speed="9.05" pastSpeed="9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 5.81 7.88 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.29 4.86 7.27 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 6.29 7.64 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 9.26 2.19 4.14 5.53 9.26 9.26 9.26 9.26 9.26"/>
+        <edge id="east_in" speed="11.12" pastSpeed="10.43 9.11 8.98 8.84 8.82 12.68 12.87 13.08 13.00 12.72 12.09 12.81 13.05 12.70 12.20 11.84 11.67 12.16 12.37 11.89 10.98 9.78 9.09 8.66 8.53 9.97 11.60 11.37 11.76 11.47 12.06 11.88 12.29 11.85 11.85 11.83 12.11 11.65 11.89 11.49 11.71 11.99 11.67 11.64 11.89 11.89 11.73 11.94 11.91 11.63 11.45 11.93 11.72 11.91 11.87 11.61 11.34 10.29 8.84 7.69 7.42 7.40 7.99 7.89 7.93 8.07 7.96 9.40 9.51 9.55 10.19 11.14 11.11 11.45 11.61 9.52 8.33 8.32 8.35 8.38 8.31 8.36 8.30 8.31 8.15 11.19 9.76 9.38 11.79 11.79 12.12 11.85 11.58 11.95 11.50 11.87 12.08 11.70 10.12 7.93 8.07 8.46 8.35 8.11 7.17 10.89 10.59 11.07 11.69 13.21 13.14 13.14 12.93 13.22 12.88 13.29 13.05 12.89 12.97 13.05 12.70 12.95 13.00 12.74 12.94 12.77 13.15 13.11 13.07 12.88 12.86 12.76 12.99 12.87 12.85 12.43 11.52 10.54 9.65 9.07 8.40 8.73 8.72 8.06 7.96 7.23 8.04 8.26 8.66 10.20 10.92 11.47 12.81 12.94 12.72 12.65 13.01 12.43 11.81 11.32 11.18 11.03 11.47 11.20 11.55 11.71 12.82 13.07 12.50 13.18 13.02 12.99 12.38 12.95 12.91 13.33 13.04 13.45 12.94 12.16"/>
+        <edge id="east_out" speed="12.40" pastSpeed="12.27 12.35 12.14 12.45 12.43 12.38 12.38 12.22 12.23 11.92 11.95 12.12 11.74 12.07 12.17 12.48 12.41 12.44 12.48 12.72 12.26 12.51 12.76 12.97 12.89 13.06 12.69 12.88 12.92 12.16 13.42 13.56 13.57 13.49 13.39 13.43 13.47 13.54 13.46 13.39 13.61 13.26 13.89 13.89 10.59 11.60 12.42 13.09 13.82 13.41 13.68 13.66 13.62 13.66 13.53 13.48 13.69 13.80 13.48 13.68 13.27 13.72 13.79 13.30 13.69 13.66 13.24 13.52 13.56 10.51 11.17 10.83 10.88 11.34 11.44 12.14 12.07 12.13 11.33 11.83 11.78 11.82 11.42 11.50 11.35 11.00 10.36 11.00 11.33 10.98 11.59 12.05 12.11 11.93 11.97 11.86 11.80 12.18 12.16 11.83 11.88 12.02 12.20 12.32 11.98 11.99 11.84 12.11 11.68 11.64 11.97 12.03 12.06 12.49 12.45 12.37 12.23 12.43 12.32 12.67 12.32 12.44 12.12 12.30 12.77 12.90 12.72 12.41 12.55 12.32 12.68 12.99 12.75 12.75 12.53 12.60 12.81 12.63 12.67 12.74 12.81 12.93 11.65 11.85 12.38 12.40 12.90 12.92 12.48 12.61 10.91 12.16 11.64 12.21 12.37 12.27 12.12 12.09 11.85 11.95 12.10 12.26 11.83 11.94 11.43 11.62 11.78 11.48 12.01 12.01 12.06 12.16 12.28 12.39 12.33 12.23 12.27 12.51 12.19 12.32"/>
+        <edge id="north_in" speed="10.64" pastSpeed="10.75 10.80 11.17 11.62 11.51 11.56 11.65 11.55 11.23 11.16 10.92 10.78 10.60 10.41 9.96 10.76 10.51 10.50 10.60 10.68 10.39 10.46 10.41 10.51 11.17 11.00 10.81 10.27 10.36 10.35 11.87 12.01 12.14 11.96 12.10 12.10 11.95 12.11 11.99 11.80 11.97 11.46 11.68 11.62 11.84 10.68 9.68 8.68 8.34 8.09 8.28 7.67 7.23 7.17 7.32 7.75 8.45 7.36 7.48 8.59 8.53 8.60 8.48 8.33 8.58 7.69 6.53 5.95 5.82 6.15 6.10 6.17 5.88 6.21 6.11 7.88 8.34 9.80 11.08 12.34 12.26 12.24 12.43 12.54 12.37 12.30 12.00 11.29 10.59 9.98 10.41 10.09 10.70 10.50 10.41 12.27 12.56 12.18 12.44 12.14 12.36 12.68 12.51 12.58 12.58 11.36 11.03 10.67 10.42 11.11 10.97 10.85 10.38 9.65 8.84 10.23 11.29 11.14 11.96 12.17 12.62 12.55 12.59 13.11 12.87 12.94 13.05 12.59 12.71 12.49 12.11 11.91 11.88 11.95 11.86 12.95 13.22 12.77 12.81 12.77 12.84 12.55 12.76 12.98 12.93 12.54 11.98 11.60 11.37 11.40 10.94 10.40 9.39 8.34 7.29 7.64 7.92 8.65 10.08 10.63 10.95 11.82 11.99 11.59 11.49 11.53 10.94 10.79 10.02 9.73 9.47 9.75 9.28 9.53 9.33 10.72 10.96 10.87 10.72 10.17"/>
+        <edge id="north_out" speed="12.44" pastSpeed="11.93 12.00 12.38 12.42 12.81 12.86 12.99 12.37 12.41 12.40 12.73 13.09 12.80 12.70 13.16 12.94 12.65 13.02 12.52 12.62 12.92 12.72 12.81 12.89 12.89 12.75 12.90 12.55 11.80 12.10 11.52 11.82 12.10 12.13 12.36 12.27 12.26 12.56 12.29 11.60 12.44 12.23 12.68 12.43 12.74 12.99 12.65 13.05 12.90 12.84 12.82 12.92 12.87 12.78 12.65 12.77 12.74 12.47 12.75 12.34 12.52 12.54 12.80 12.70 12.96 12.66 12.74 12.74 12.69 12.60 12.60 12.58 12.14 12.32 12.42 12.65 12.70 12.79 12.68 12.29 12.61 12.29 12.56 12.45 12.59 12.64 12.51 11.97 12.19 12.54 11.95 12.24 12.25 12.53 12.41 12.33 12.62 12.63 12.50 12.26 12.22 12.44 12.67 12.44 12.48 12.46 12.55 12.74 12.50 12.47 12.37 12.65 12.07 12.19 12.28 12.38 12.31 12.31 12.43 12.43 11.81 12.35 11.98 11.97 12.26 12.27 11.49 11.84 12.10 11.76 12.17 11.98 11.92 12.19 12.09 12.25 12.45 12.68 12.28 11.53 11.96 11.98 12.31 12.42 12.27 12.02 12.38 12.37 11.88 12.09 12.30 12.35 12.58 12.48 12.42 12.39 12.48 12.24 12.48 12.08 12.17 11.94 12.14 12.22 12.63 12.70 12.57 12.72 12.57 12.74 12.58 12.68 12.64 12.59 12.64 12.08 12.19 12.37 12.51 12.46"/>
+        <edge id="south_in" speed="10.47" pastSpeed="12.75 12.60 12.54 12.55 12.58 12.26 12.28 12.54 12.67 12.56 12.32 11.63 10.79 9.79 9.60 11.77 11.79 11.32 11.70 11.24 11.28 11.11 10.75 10.86 10.13 10.33 10.51 10.29 9.88 9.31 10.77 10.47 9.83 9.58 9.43 10.59 10.32 9.81 10.55 10.84 11.72 12.34 12.44 12.62 12.55 12.14 11.56 11.74 11.81 11.29 10.86 10.09 9.49 8.75 8.44 9.31 8.72 8.87 9.52 9.28 9.44 9.92 10.31 11.17 10.79 10.36 9.81 9.69 9.66 9.68 9.73 9.68 9.03 8.63 8.03 9.78 10.17 9.93 11.29 11.07 11.47 11.98 12.16 11.80 12.08 11.94 12.29 11.81 11.74 11.29 11.23 11.09 11.16 11.31 11.20 12.37 12.51 12.40 12.38 12.36 12.34 12.53 12.48 12.41 12.20 11.76 11.65 11.49 10.66 10.60 10.01 9.69 9.78 9.47 9.15 9.75 9.89 9.50 9.62 9.83 9.77 9.77 10.09 10.72 10.82 10.97 10.53 9.94 9.20 8.48 7.56 6.82 6.19 6.38 5.71 6.06 5.60 5.66 6.26 6.93 7.91 8.96 8.24 9.44 9.60 9.01 8.54 8.20 7.53 6.96 6.38 5.81 6.71 6.49 6.43 8.80 9.42 9.61 10.37 10.78 11.44 11.96 12.37 13.08 12.85 13.02 13.06 13.04 13.02 12.77 12.44 11.93 11.73 11.68 11.75 11.79 12.73 12.62 12.69 12.66"/>
+        <edge id="south_out" speed="12.35" pastSpeed="12.54 12.91 12.78 12.80 12.86 12.45 12.65 12.64 13.00 13.03 12.16 12.58 12.67 13.39 13.14 13.09 13.00 13.30 12.73 12.49 13.01 12.42 12.61 12.63 12.67 12.60 12.54 12.34 12.58 12.74 12.54 12.67 12.44 12.70 11.94 12.03 11.96 12.04 12.15 12.61 12.32 12.41 12.78 12.74 12.81 12.82 12.83 11.86 12.15 12.42 12.49 12.86 12.71 12.73 11.90 12.41 12.38 12.30 12.52 12.24 12.32 12.11 11.66 12.01 12.13 11.78 12.01 12.19 12.11 12.04 12.24 12.08 12.25 12.41 12.12 12.12 12.58 12.40 12.41 11.66 11.94 11.76 11.96 12.11 12.01 12.00 12.03 11.81 11.81 11.84 11.92 11.94 11.72 11.23 11.29 11.05 11.00 11.46 11.79 11.82 11.84 12.03 12.10 12.06 12.01 12.01 12.00 12.21 12.23 12.22 12.37 12.20 11.30 11.62 11.75 11.84 12.45 12.36 11.74 11.77 12.00 12.05 12.52 12.76 12.50 12.51 12.60 12.44 12.59 12.54 12.59 12.21 12.48 12.39 12.31 12.37 12.42 12.25 12.39 11.95 12.39 12.45 12.43 12.33 12.48 12.62 12.55 12.51 12.44 12.74 12.66 12.52 12.47 12.49 12.61 12.55 12.40 12.35 12.52 11.51 12.21 11.89 12.76 12.90 13.16 12.69 12.78 13.11 12.96 12.80 12.90 12.90 13.00 12.95 13.06 13.12 12.69 12.36 11.75 11.86"/>
+        <edge id="west_in" speed="11.12" pastSpeed="8.05 8.12 7.93 7.99 8.03 9.84 10.60 10.91 13.31 12.30 12.18 13.45 13.18 13.43 13.29 13.37 13.48 13.40 13.59 11.76 9.91 7.76 7.06 6.99 6.96 7.18 7.16 6.95 13.89 13.89 11.67 11.09 9.57 9.46 9.62 8.27 9.37 8.76 8.92 8.78 9.09 8.91 8.92 9.14 10.05 11.98 11.94 12.14 12.28 12.76 12.41 12.27 12.10 11.72 12.38 12.28 12.67 12.37 12.76 12.51 12.32 11.95 12.05 11.40 11.63 11.76 11.62 13.19 12.88 12.93 12.99 12.78 12.92 12.78 12.65 12.94 12.81 12.78 12.86 12.63 12.31 12.25 11.90 11.80 11.78 12.76 12.17 12.33 12.18 12.54 12.04 12.73 11.98 11.93 12.53 12.36 12.10 11.28 10.96 10.71 10.38 9.85 10.24 10.30 10.27 12.11 11.88 11.68 11.43 12.01 12.10 12.52 12.56 12.33 12.39 12.00 11.69 11.35 10.78 10.66 10.44 10.56 10.29 10.40 10.54 12.48 12.49 12.53 12.70 12.65 12.67 12.57 12.53 12.33 12.48 11.43 10.70 9.85 9.84 9.58 9.44 9.69 8.78 8.04 7.18 6.83 6.95 7.02 7.24 8.48 8.68 9.38 10.33 11.01 12.04 12.38 11.28 9.96 9.35 9.33 8.99 9.12 9.76 9.53 9.72 12.17 11.30 11.08 13.11 12.81 12.56 13.16 13.16 13.05 13.27 13.09 12.41 10.96 9.28 8.64"/>
+        <edge id="west_out" speed="12.21" pastSpeed="12.25 12.10 11.38 11.41 11.99 11.71 11.81 11.94 12.20 11.90 11.97 11.95 12.00 11.86 11.58 11.18 11.87 11.98 12.24 12.38 12.43 12.28 12.29 12.24 12.15 11.94 11.90 12.10 12.18 12.10 12.59 12.68 12.58 13.08 12.32 12.55 12.93 12.76 13.06 13.08 12.90 13.06 13.02 12.96 13.10 13.00 12.91 13.05 13.11 13.13 12.79 13.03 12.92 13.06 13.16 12.66 13.03 13.21 13.08 13.05 12.82 12.80 13.10 12.97 12.66 12.94 12.85 12.92 12.80 11.44 11.39 11.51 11.95 12.64 11.99 12.47 12.39 12.33 12.16 12.47 12.17 12.52 12.32 11.81 12.07 12.58 12.35 12.45 12.53 12.04 12.39 12.37 12.18 12.56 12.32 12.60 12.15 12.22 12.48 12.31 12.15 12.25 12.47 12.40 12.27 12.35 12.16 12.32 12.05 11.96 11.96 12.00 11.42 11.51 11.70 11.75 11.84 12.25 11.68 12.20 12.45 12.07 12.23 12.38 10.96 10.47 10.85 11.35 11.93 11.76 11.87 12.01 11.91 11.90 12.10 11.70 11.77 11.60 11.87 11.61 11.88 12.05 12.20 12.39 10.59 11.07 11.59 10.92 11.28 11.38 11.09 11.58 11.41 12.06 12.06 12.49 12.49 12.41 12.59 12.72 12.59 12.64 12.55 12.39 12.92 12.72 12.31 12.01 11.87 11.83 11.65 11.92 11.68 11.85 11.71 11.94 12.45 12.09 11.85 12.02"/>
+    </routingEngine>
+</snapshot>

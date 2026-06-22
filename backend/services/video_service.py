@@ -3,6 +3,7 @@ import numpy as np
 from typing import Optional, Dict
 import backend.dependencies as deps
 from backend.core.utils import _optional_cv2
+from backend.core.network_mapper import mapper
 
 def _get_cam_renderer(junction_id: str, direction: str):
     from backend.main import RoadCameraRenderer, _resolve_camera_source, _cam_renderers, logger
@@ -64,6 +65,19 @@ def _junction_state_payload(junction_id: str) -> Dict:
         "stream_url": f"/api/live/camera/{junction_id}/{camera_direction}"
     }
     payload["live_source"] = _camera_source_payload()
+    
+    dt_info = mapper.get_intersection(junction_id)
+    if dt_info:
+        payload["lat"] = dt_info["lat"]
+        payload["lon"] = dt_info["lon"]
+        payload["junction_id"] = dt_info["junction_id"]
+        payload["neighbors"] = dt_info["neighbors"]
+    else:
+        payload["lat"] = 0.0
+        payload["lon"] = 0.0
+        payload["junction_id"] = junction_id
+        payload["neighbors"] = []
+        
     return payload
 
 

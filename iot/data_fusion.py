@@ -60,25 +60,8 @@ class IntersectionSnapshot:
     aqi: float = 50.0
     timestamp: float = field(default_factory=time.time)
 
-    def to_feature_vector(self, approach_order=("north","south","east","west")) -> np.ndarray:
-        """Flat numpy vector: [count, occ, speed, queue, ped] × 4 approaches + environment."""
-        feats = []
-        for ap in approach_order:
-            s = self.approaches.get(ap, ApproachState(ap))
-            feats += [
-                s.vehicle_count / 20.0,       # normalised ~0-1
-                s.occupancy_pct / 100.0,
-                s.speed_kmh / 80.0,
-                s.queue_length / 30.0,
-                float(s.ped_request),
-                s.data_quality,
-            ]
-        feats += [
-            float(self.emergency_active),
-            min(self.rainfall_mm_h, 50.0) / 50.0,
-            min(self.visibility_m, 1000.0) / 1000.0,
-        ]
-        return np.array(feats, dtype=np.float32)
+    timestamp: float = field(default_factory=time.time)
+
 
 
 # Lane length assumption (m) for converting occupancy → queue

@@ -48,7 +48,7 @@ def main():
     # Fallback if specific folders aren't found
     if not sequences:
         for img_path in input_path.rglob('*.jpg'):
-                seq_name = img_path.parent.name
+            seq_name = img_path.parent.name
             sequences[seq_name].append(img_path)
 
     if not sequences:

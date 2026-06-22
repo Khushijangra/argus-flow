@@ -291,28 +291,50 @@ class MultiAgentCoordinator:
         self._graph_coordinator = GraphCoordinator(debug=self.graph_debug) if self.graph_enabled else None
 
     def _snapshot_to_obs(self, snapshot: object, prev_obs: Optional[np.ndarray] = None) -> np.ndarray:
-        if hasattr(snapshot, "to_feature_vector") and callable(getattr(snapshot, "to_feature_vector")):
-            return np.asarray(snapshot.to_feature_vector(), dtype=np.float32).reshape(-1)
+        try:
+            from core.hybrid_state import HybridStateBuilder, RLObservationMapper
+        except ImportError:
+            import sys
+            import os
+            sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+            from core.hybrid_state import HybridStateBuilder, RLObservationMapper
 
         if isinstance(snapshot, dict):
+            if snapshot.get("$schema") == "nexus-hybrid-state-v1":
+                return RLObservationMapper.to_vector(snapshot)
+
             queue = float(snapshot.get("queue_length", snapshot.get("vehicle_count", 0.0)))
             wait = float(snapshot.get("waiting_time", 0.0))
             inflow = float(snapshot.get("predicted_inflow", 0.0))
             occ = float(snapshot.get("occupancy", snapshot.get("density", 0.0)))
-            emergency = 1.0 if bool(snapshot.get("emergency_flag", False)) else 0.0
+            emergency = bool(snapshot.get("emergency_flag", False))
 
-            obs = np.zeros((26,), dtype=np.float32)
-            for base in (0, 4, 8, 12):
-                obs[base] = queue / 30.0
-                obs[base + 1] = wait / 180.0
-                obs[base + 2] = inflow
-                obs[base + 3] = occ
-            obs[22] = emergency
-            return obs
+            class _DummyApp:
+                def __init__(self, q, w, o, i):
+                    self.queue_length = q
+                    self.wait_time = w
+                    self.occupancy_pct = o * 100.0
+                    self.flow_veh_h = i * 3600.0
+            
+            d = _DummyApp(queue, wait, occ, inflow)
+            hybrid = HybridStateBuilder.build_from_telemetry(
+                intersection_id="UNKNOWN",
+                approaches={"north": d, "south": d, "east": d, "west": d},
+                emergency_active=emergency
+            )
+            return RLObservationMapper.to_vector(hybrid)
+
+        if hasattr(snapshot, "approaches"):
+            hybrid = HybridStateBuilder.build_from_telemetry(
+                intersection_id=getattr(snapshot, "intersection_id", "UNKNOWN"),
+                approaches=getattr(snapshot, "approaches", {}),
+                emergency_active=getattr(snapshot, "emergency_active", False)
+            )
+            return RLObservationMapper.to_vector(hybrid)
 
         if prev_obs is not None:
             return prev_obs
-        return np.zeros((26,), dtype=np.float32)
+        return np.zeros((28,), dtype=np.float32)
 
     def _snapshot_to_graph_node(self, snapshot: object) -> Dict[str, float]:
         if isinstance(snapshot, dict):

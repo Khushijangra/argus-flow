@@ -1,0 +1,15 @@
+{
+  "true_positives": 100,
+  "false_positives": 19,
+  "true_negatives": 181,
+  "false_negatives": 0,
+  "precision": 0.8403,
+  "recall": 1.0,
+  "f1_score": 0.9132,
+  "accuracy": 0.9367,
+  "detector_breakdown": {
+    "z_score": 100,
+    "isolation_forest": 99,
+    "autoencoder": 88
+  }
+}

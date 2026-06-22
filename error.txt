@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\test_runner.py", line 11, in <module>
+    scripts.run_real_incident_test.run_test()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\scripts\run_real_incident_test.py", line 84, in run_test
+    subprocess.run([sys.executable, "temp_score_script.py"], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['C:\\Python313\\python.exe', 'temp_score_script.py']' returned non-zero exit status 1.

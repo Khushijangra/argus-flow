@@ -1,0 +1,26 @@
+FROM pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt .
+
+# Install python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy Stream-A and inference server code
+COPY ai/anomaly /app/ai/anomaly
+COPY scripts/inference_server.py /app/scripts/inference_server.py
+
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 8000
+
+CMD ["python", "scripts/inference_server.py"]

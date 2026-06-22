@@ -102,13 +102,13 @@ def _arrival_rate(approach: str, profile: str, hour: float) -> float:
 
 APPROACHES = ("north", "south", "east", "west")
 OBS_DIM = (
-    len(APPROACHES) * 4   # queue_length, wait_time, arrival_rate, occupancy per approach
+    len(APPROACHES) * 5   # queue, wait, occupancy, flow/arrivals, anomaly_severity
     + 4                   # current phase one-hot
     + 1                   # time since phase change (normalised)
     + 1                   # time of day (normalised hour)
     + 1                   # emergency flag
     + 1                   # ped_request flag
-)  # = 26
+)  # = 28
 
 
 class TrafficEnvironment(gym.Env):
@@ -155,6 +155,15 @@ class TrafficEnvironment(gym.Env):
         self._wait:  Dict[str, float] = {a: 0.0 for a in APPROACHES}
         self._occ:   Dict[str, float] = {a: 0.0 for a in APPROACHES}
         self._arrivals: Dict[str, float] = {a: 0.0 for a in APPROACHES}
+        self._anomaly_severity: Dict[str, float] = {a: 0.0 for a in APPROACHES}
+        self._anomaly_timer: Dict[str, float] = {a: 0.0 for a in APPROACHES}
+        self._anomaly_prob = 0.003  # targeting ~10% active time
+        self._anomaly_multiplier = 0.5  # Reduced from 3.0 to ease learning
+        
+        # Reward tracking for delta metrics
+        self._prev_wait: Dict[str, float] = {a: 0.0 for a in APPROACHES}
+        self._prev_queue: Dict[str, float] = {a: 0.0 for a in APPROACHES}
+        self._phase_age: Dict[int, float] = {p: 0.0 for p in range(len(self.cfg.phases))}
 
         self._current_phase: int = 0
         self._phase_elapsed: int = 0    # seconds
@@ -184,6 +193,8 @@ class TrafficEnvironment(gym.Env):
         self._wait   = {a: 0.0 for a in APPROACHES}
         self._occ    = {a: 0.0 for a in APPROACHES}
         self._arrivals = {a: 0.0 for a in APPROACHES}
+        self._anomaly_severity = {a: 0.0 for a in APPROACHES}
+        self._anomaly_timer = {a: 0.0 for a in APPROACHES}
         self._current_phase = 0
         self._phase_elapsed = 0
         self._step_count = 0
@@ -194,6 +205,12 @@ class TrafficEnvironment(gym.Env):
         self._total_stops = 0
         self._episode_reward = 0.0
         self._sim_hour = float(self._rng.uniform(6.5, 20.0))
+        
+        self._prev_wait = {a: 0.0 for a in APPROACHES}
+        self._prev_queue = {a: 0.0 for a in APPROACHES}
+        self._phase_age = {p: 0.0 for p in range(len(self.cfg.phases))}
+        
+        self._last_reward_terms = {}
 
         obs = self._build_obs()
         return obs, self._info()
@@ -249,6 +266,18 @@ class TrafficEnvironment(gym.Env):
         total_queue = sum(self._queue.values())
         self._total_delay_s += total_queue * dt
 
+        # --- Anomalies (Stochastic Spawning & Decay) ---
+        for ap in APPROACHES:
+            if self._anomaly_timer[ap] > 0:
+                self._anomaly_timer[ap] -= dt
+                if self._anomaly_timer[ap] <= 0:
+                    self._anomaly_timer[ap] = 0.0
+                    self._anomaly_severity[ap] = 0.0
+            else:
+                if self._rng.random() < self._anomaly_prob:
+                    self._anomaly_severity[ap] = self._rng.uniform(0.5, 1.0)
+                    self._anomaly_timer[ap] = self._rng.uniform(30.0, 120.0)
+
         # Emergency / pedestrian stochastic events
         if self._rng.random() < 0.002:
             self._emergency = True
@@ -260,7 +289,14 @@ class TrafficEnvironment(gym.Env):
         self._sim_hour = (self._sim_hour + dt / 3600.0) % 24.0
         self._step_count += 1
 
-        obs = self._build_obs()
+         # 4. Advance phase age
+        for p in range(len(self.cfg.phases)):
+            if p == self._current_phase:
+                self._phase_age[p] = 0.0
+            else:
+                self._phase_age[p] += self.cfg.delta_time
+
+        # 5. Compute reward
         reward = self._compute_reward(throughput_step, switching)
         self._episode_reward += reward
 
@@ -270,6 +306,7 @@ class TrafficEnvironment(gym.Env):
         if self.render_mode == "human":
             self._render_ascii()
 
+        obs = self._build_obs()
         return obs, reward, terminated, truncated, self._info()
 
     def inject_emergency(self, active: bool = True) -> None:
@@ -303,23 +340,46 @@ class TrafficEnvironment(gym.Env):
         """
         sat = self.cfg.saturation_flow_veh_h / 3600.0 * self.cfg.delta_time
         r_throughput  = throughput / (sat * len(APPROACHES) + 1e-3)
-        r_wait        = -sum(self._wait.values()) / (300.0 * len(APPROACHES))
-        r_queue       = -sum(self._queue.values()) / (20.0 * len(APPROACHES))
-        r_switch      = -0.15 if switching else 0.0
+        
+        # Delta wait and Delta queue
+        r_wait = 0.0
+        r_queue = 0.0
+        for a in APPROACHES:
+            wait_improvement = self._prev_wait[a] - self._wait[a]
+            queue_improvement = self._prev_queue[a] - self._queue[a]
+            
+            # Normalize improvements
+            r_wait += (1.0 + self._anomaly_multiplier * self._anomaly_severity[a]) * wait_improvement / 300.0
+            r_queue += (1.0 + self._anomaly_multiplier * self._anomaly_severity[a]) * queue_improvement / 20.0
+            
+            self._prev_wait[a] = self._wait[a]
+            self._prev_queue[a] = self._queue[a]
+            
+        # Switch penalty disabled for debugging
+        r_switch      = 0.0
         r_overflow    = -1.0 if any(q > 18 for q in self._queue.values()) else 0.0
         r_emission    = -sum(self._queue.values()) * 0.005   # idling CO2 proxy
         r_ped         = 0.1 if self._ped_request and self.cfg.phases[self._current_phase].ped_cross else -0.05
+        
+        # Starvation penalty (60 seconds)
+        r_starvation = 0.0
+        for p, age in self._phase_age.items():
+            if age > 60.0:
+                r_starvation -= 1.0
 
-        reward = (
-            r_throughput * 0.35
-            + r_wait     * 0.25
-            + r_queue    * 0.20
-            + r_switch   * 0.08
-            + r_overflow * 0.05
-            + r_emission * 0.04
-            + r_ped      * 0.03
-        )
-        return float(np.clip(reward, -2.0, 1.0))
+        self._last_reward_terms = {
+            "r_throughput": r_throughput * 0.35,
+            "r_wait": r_wait * 0.25,
+            "r_queue": r_queue * 0.20,
+            "r_switch": r_switch,
+            "r_overflow": r_overflow * 0.05,
+            "r_emission": r_emission * 0.04,
+            "r_ped": r_ped * 0.03,
+            "r_starvation": r_starvation * 0.1
+        }
+
+        reward = sum(self._last_reward_terms.values())
+        return float(reward)
 
     # ------------------------------------------------------------------
     # Observation builder
@@ -332,8 +392,9 @@ class TrafficEnvironment(gym.Env):
         for ap in APPROACHES:
             obs.append(float(np.clip(self._queue[ap]   / max_q, 0, 1)))
             obs.append(float(np.clip(self._wait[ap]    / max_w, 0, 1)))
-            obs.append(float(np.clip(self._arrivals[ap]/ 0.5,   0, 1)))
             obs.append(float(np.clip(self._occ[ap],             0, 1)))
+            obs.append(float(np.clip(self._arrivals[ap]/ 0.5,   0, 1)))
+            obs.append(float(np.clip(self._anomaly_severity[ap], 0, 1)))
 
         # Phase one-hot
         n_phases = len(self.cfg.phases)
@@ -365,6 +426,8 @@ class TrafficEnvironment(gym.Env):
             "phase": self.cfg.phases[self._current_phase].name,
             "episode_reward": round(self._episode_reward, 3),
             "sim_hour": round(self._sim_hour, 2),
+            "anomalies": {a: round(self._anomaly_severity[a], 2) for a in APPROACHES},
+            "reward_terms": self._last_reward_terms,
         }
 
     def _render_ascii(self) -> None:

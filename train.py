@@ -139,6 +139,12 @@ def main():
         default=None,
         help="Resume D3QN training from a checkpoint.pt file",
     )
+    parser.add_argument(
+        "--run-name",
+        type=str,
+        default=None,
+        help="Override the generated run name (e.g. anomaly_v1)",
+    )
 
     args = parser.parse_args()
     log = setup_logger("train")
@@ -183,7 +189,10 @@ def main():
 
     # Directories
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_name = f"{args.agent}_{timestamp}"
+    if args.run_name:
+        run_name = args.run_name
+    else:
+        run_name = f"{args.agent}_{timestamp}"
     log_dir = os.path.join("logs", run_name)
     model_dir = os.path.join("models", run_name)
     os.makedirs(log_dir, exist_ok=True)

@@ -25,7 +25,7 @@ def main():
 
     if not seq_counts:
         for img_path in input_path.rglob('*.jpg'):
-                seq_name = img_path.parent.name
+            seq_name = img_path.parent.name
             seq_counts[seq_name] = seq_counts.get(seq_name, 0) + 1
 
     sequences = [{'name': name, 'frames': count} for name, count in sorted(seq_counts.items())]
@@ -34,19 +34,20 @@ def main():
         print("Warning: No images found. Waiting for extraction to complete.")
         return
 
-    # Split logic (simulate train/test split based on sequence availability)
-    train_seqs = sequences[:len(sequences)//2]
-    test_seqs = sequences[len(sequences)//2:]
+    # Split logic: 70 train, 15 val, 15 test
+    train_seqs = sequences[:70]
+    val_seqs = sequences[70:85]
+    test_seqs = sequences[85:]
 
     splits = {
         "train": {"normal": [s['name'] for s in train_seqs], "abnormal": []},
-        "val": {"normal": [], "abnormal": []},
+        "val": {"normal": [], "abnormal": [s['name'] for s in val_seqs]},
         "test": {"normal": [], "abnormal": [s['name'] for s in test_seqs]}
     }
 
-    # Heuristically inject anomalies for the test set
+    # Heuristically inject anomalies for val and test sets
     frame_labels = {}
-    for s in test_seqs:
+    for s in val_seqs + test_seqs:
         n = s['frames']
         normal_len = int(n * 0.7)
         anomaly_len = n - normal_len
@@ -68,6 +69,7 @@ def main():
     print(f"total sequences found: {len(sequences)}")
     print(f"total frames found: {total_frames}")
     print(f"train sequences: {len(train_seqs)}")
+    print(f"val sequences: {len(val_seqs)}")
     print(f"test sequences: {len(test_seqs)}")
     print(f"Output metadata files generated at {output_path}:")
     print(f"  - {output_path / 'ua_detrac_splits.json'}")

@@ -1,13 +1,49 @@
+version: "3.8"
+
 services:
-  web:
+  stream-a:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile.stream_a
+    container_name: nexus-stream-a
     ports:
       - "8000:8000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ./data/models:/app/data/models
     environment:
-      DEMO_MODE: "true"
-      LIVE_MODE: "false"
-      FAIL_FAST_VIDEO: "false"
-      ALLOWED_ORIGINS: "http://127.0.0.1:8000,http://localhost:8000"
-      PYTHONUNBUFFERED: "1"
+      - MODEL_CHECKPOINT_PATH=/app/data/models/anomaly_v4/best_model.zip
+      - DEVICE=cuda
+
+  runtime:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.runtime
+    container_name: nexus-runtime
+    ports:
+      - "8001:8001"
+    depends_on:
+      - stream-a
+    volumes:
+      - ./data/networks:/app/data/networks
+    environment:
+      - STREAM_A_URL=http://stream-a:8000
+      - DEVICE=cpu
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    container_name: nexus-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - runtime
+    environment:
+      - REACT_APP_WS_URL=ws://localhost:8001/ws

@@ -1,0 +1,36 @@
+{
+  "baseline": {
+    "mean_reward": -1095.8090000000002,
+    "std_reward": 0.0,
+    "avg_waiting_time": 553.725,
+    "avg_queue_length": 25.394444444444446,
+    "throughput": 530.0
+  },
+  "rl_agent": {
+    "mean_reward": -1380.481999999999,
+    "std_reward": 0.0,
+    "mean_length": 720.0,
+    "episodes": 1,
+    "avg_waiting_time": 696.6166666666667,
+    "avg_queue_length": 31.544444444444444,
+    "avg_throughput": 485.0,
+    "throughput": 485.0
+  },
+  "comparison": {
+    "avg_waiting_time": {
+      "baseline": 553.725,
+      "rl_agent": 696.6166666666667,
+      "change_pct": 25.81
+    },
+    "avg_queue_length": {
+      "baseline": 25.394444444444446,
+      "rl_agent": 31.544444444444444,
+      "change_pct": 24.22
+    },
+    "throughput": {
+      "baseline": 530.0,
+      "rl_agent": 485.0,
+      "change_pct": -8.49
+    }
+  }
+}

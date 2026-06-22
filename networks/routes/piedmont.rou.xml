@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-20 14:43:55.962350 by Eclipse SUMO randomTrips.py v1_26_0+0000-fa7df22d7f1
+<configuration>
+    <net-file value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\sumo\piedmont.net.xml"/>
+    <route-file value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\routes\piedmont.rou.xml"/>
+    <fringe-factor value="10"/>
+    <min-distance value="300.0"/>
+    <period value="1.0"/>
+</configuration>
+-->
+
+<!-- generated on 2026-06-20T14:43:55.780112+05:30 by Eclipse SUMO duarouter 1.26.0
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\sumo\piedmont.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Asus\OneDrive\Desktop\projects\urban congestion\networks\routes\piedmont.rou.xml"/>
+        <alternatives-output value="NUL"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="1411" depart="1411.00">
+        <route edges="54144629 54144628#1 54144628#0"/>
+    </vehicle>
+</routes>

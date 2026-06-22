@@ -1,0 +1,47 @@
+{
+  "release_candidate": {
+    "created_at_utc": "2026-04-11T15:02:35.264794+00:00",
+    "policy": "release-gate-15.25",
+    "status": "accepted",
+    "timesteps": 30000,
+    "config": "configs/default.yaml",
+    "seeds": [
+      42,
+      123,
+      999
+    ]
+  },
+  "gate": {
+    "pass": true,
+    "thresholds": {
+      "require_improved_seeds": 2,
+      "max_throughput_drop_pct": 15.25
+    },
+    "counts": {
+      "missing": 0,
+      "improved_wait": 3,
+      "improved_queue": 3,
+      "improved_both": 3,
+      "acceptable_throughput": 3,
+      "near_miss_throughput": 0
+    }
+  },
+  "kpi_snapshot": {
+    "mean_reward": -20.234033333333343,
+    "std_reward": 0.45662922474244383,
+    "avg_waiting_time": 9.961944444444446,
+    "avg_queue_length": 2.482685185185185,
+    "avg_throughput": 421.1333333333334,
+    "any_nan_loss": false
+  },
+  "artifacts": {
+    "gate_report": {
+      "path": "results/d3qn_gate_report_release.json",
+      "sha256": "9f20b34e915620241fb6f76a711978dc241eab8f9e3c87b160f0a5889eb7fbbd"
+    },
+    "multiseed_summary": {
+      "path": "results/d3qn_multiseed_summary.json",
+      "sha256": "1e337f86ff09644f60093e7bbbab1e80ffcf112fb26c6ece87c8711554529e31"
+    }
+  }
+}

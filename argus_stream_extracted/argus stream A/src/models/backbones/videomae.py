@@ -139,11 +139,15 @@ class _VideoMAEInMemoryClipDataset(Dataset):
 
     def __getitem__(self, idx: int) -> torch.Tensor:
         start = self.clip_starts[idx]
+        import cv2
         frames = []
         for i in range(CLIP_LENGTH):
             raw_idx = start + i * TEMPORAL_STRIDE
             raw_idx = min(raw_idx, self.num_frames - 1)
-            frames.append(self.frames_rgb[raw_idx])
+            frame = self.frames_rgb[raw_idx]
+            if frame.shape[:2] != (FRAME_SIZE, FRAME_SIZE):
+                frame = cv2.resize(frame, (FRAME_SIZE, FRAME_SIZE), interpolation=cv2.INTER_LINEAR)
+            frames.append(frame)
 
         clip_array = np.stack(frames).transpose(0, 3, 1, 2)
         tensor = torch.from_numpy(clip_array).float().div_(255.0)
@@ -331,7 +335,7 @@ class VideoMAEFeatureExtractor:
     @torch.inference_mode()
     def extract_from_frames(
         self,
-        frames_rgb: List[np.ndarray],
+        frames_rgb: "Union[List[np.ndarray], np.ndarray]",
         batch_size: int = 16,
     ) -> np.ndarray:
         """Extract VideoMAEv2 features directly from in-memory RGB frames.

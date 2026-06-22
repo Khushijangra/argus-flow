@@ -1,0 +1,8 @@
+NEXUS-ATMS Nonzero Junction Demo Data
+Mode: rl
+Ticks: 24
+Rows: 384
+Average waiting time: 27.76 s
+Minimum waiting time: 16.91 s
+Maximum waiting time: 38.08 s
+Source: DemoDataGenerator running traffic snapshot series

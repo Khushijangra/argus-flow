@@ -1,0 +1,8 @@
+{
+  "n_features": 15,
+  "ae_hidden": 32,
+  "ae_latent": 8,
+  "ae_threshold": 0.7686609029769897,
+  "z_threshold": 3.0,
+  "iforest_contamination": 0.05
+}

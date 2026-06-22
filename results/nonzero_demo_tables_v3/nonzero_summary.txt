@@ -1,0 +1,11 @@
+NEXUS-ATMS Nonzero Junction Demo Data
+Mode: rl
+Ticks: 24
+Detailed rows: 384
+Wide rows: 24
+Corridor rows: 42
+Average waiting time: 16.98 s
+Minimum waiting time: 8.73 s
+Maximum waiting time: 18.99 s
+The generated data must resemble real urban traffic behavior and be suitable for academic research reporting.
+Source: DemoDataGenerator running traffic snapshot series with peak-hour and uneven junction loads.
